@@ -1,0 +1,5 @@
+./.vscode
+./build/odeSolver.so
+./build/tests.bin
+./build/obj
+./tests/acutest.hpp
