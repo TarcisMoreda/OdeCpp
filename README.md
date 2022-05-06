@@ -18,9 +18,19 @@ Compile a biblioteca:
 ```
 git clone https://github.com/TarcisMoreda/OdeCpp.git
 cd OdeCpp/build
+```
+Para a biblioteca dinânica(.so):
+```
+make dynamic
+```
+Para a biblioteca estática(.a):
+```
+make static
+```
+Para ambos:
+```
 make
 ```
-Será gerado o arquivo OdeCpp.so para a biblioteca.
 
 ## Testes
 ### Preparação

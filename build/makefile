@@ -12,6 +12,8 @@ HDRS=$(wildcard $(INC)/*.hpp)
 LIB_DYN=OdeCpp.so
 LIB_STT=OdeCpp.a
 
+all: dynamic static
+
 dynamic: $(LIB_DYN)
 
 $(LIB_DYN): $(OBJS_DYN) $(OBJ_DYN)
