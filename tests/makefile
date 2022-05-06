@@ -1,5 +1,5 @@
 CC=g++
-FLAGS=-g -Wall -O2 -fPIC
+FLAGS=-g -Wall -O2
 
 SRC=../src
 INC=../include
@@ -7,12 +7,12 @@ OBJ=obj
 SRCS=$(wildcard $(SRC)/*.cpp)
 OBJS=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 HDRS=$(wildcard $(INC)/*.hpp)
-LIB=odeSolver.so
+BIN=tests.bin
 
-all: $(LIB)
+all: $(BIN)
 
-$(LIB): $(OBJS) $(OBJ)
-	$(CC) $(FLAGS) $(OBJS) -shared -o $(LIB)
+$(BIN): $(OBJS) $(OBJ)
+	$(CC) $(FLAGS) ./tests.cpp $(OBJS) -o $(BIN)
 
 $(OBJ)/%.o: $(SRC)/%.cpp $(OBJ)
 	$(CC) $(FLAGS) -c $< -o $@
@@ -22,4 +22,4 @@ $(OBJ):
 
 clean:
 	$(RM) -r $(OBJ)
-	$(RM) $(LIB)
+	$(RM) $(BIN)

@@ -5,7 +5,8 @@
  *	Construtor do modelo de Izhikevich.
  *	@param a,b,c,d	Valores do modelo.
  */
-ode::IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, const float d):OdeModel::OdeModel(2){
+ode::IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, const float d){
+	this->numEquations = 2;
 	this->state[0] = c;
 	this->state[1] = -d;
 
@@ -22,13 +23,12 @@ ode::IzhikevichModel::IzhikevichModel(const float a, const float b, const float 
  *	@param		input A corrente de entrada.
  *	@return		Um array contendo v' no index 0.
  */
-float* ode::IzhikevichModel::modelDiferentialEquation(const float input){
-	float newState[this->numEquations];
-	float* output = newState;
-	output[0] = 0.04f*(this->state[0]*this->state[0])+5.0f*this->state[0]+140.0f-this->state[1]+input;
-	output[1] = this->a*(this->b*this->state[0]-this->state[1]);
+std::array<float, MAX_EQUATIONS> ode::IzhikevichModel::modelDiferentialEquation(const float input){
+	std::array<float, MAX_EQUATIONS> newState;
+	newState[0] = 0.04f*(this->state[0]*this->state[0])+5.0f*this->state[0]+140.0f-this->state[1]+input;
+	newState[1] = this->a*(this->b*this->state[0]-this->state[1]);
 
-	return output;
+	return newState;
 }
 
 /*

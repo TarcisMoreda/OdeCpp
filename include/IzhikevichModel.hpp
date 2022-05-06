@@ -12,7 +12,7 @@ namespace ode{
 	public:
 		IzhikevichModel(const float a, const float b, const float c, const float d);	
 
-		float* modelDiferentialEquation(const float input);
+		std::array<float, MAX_EQUATIONS> modelDiferentialEquation(const float input);
 		bool equals(const IzhikevichModel* other);
 		void attachObserver(SpikeObserver& observer) override;
 		void detachObserver(SpikeObserver& observer) override;

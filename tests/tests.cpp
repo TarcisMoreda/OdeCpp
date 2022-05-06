@@ -1,28 +1,34 @@
+#include "./acutest.hpp"
 #include "../include/OdeSolver.hpp"
 #include <iostream>
+#include <cmath>
 
-void testAlphaFunction(){
+inline bool floatIsEqual(float a, float b){
+	return std::abs(a-b) <= 1e-5*std::abs(a);
+}
+
+//Teste da funcao alfa
+void test_AlphaDiferentialEquation(){
 	ode::AlphaFunction func(1.0f, 10.0f, 3.0f);
-	float* output = func.modelDiferentialEquation(2.0f);
+	std::array<float, MAX_EQUATIONS> output = func.modelDiferentialEquation(2.0f);
 
-	if(output[0]==5.9f)
-		std::cout << "OK" << std::endl;
-	else
-		std::cout << output[0] << std::endl;
+	TEST_ASSERT_(floatIsEqual(output[0], 5.9f), "Alpha_v' = %lf == %lf", 
+												output[0], 5.9f);
 }
 
-void testIzhikevichModel(){
+void test_IzhikevichDiferentialEquation(){
 	ode::IzhikevichModel func(0.02f, 0.2f, -65.0f, 8.0f);
-	float* output = func.modelDiferentialEquation(4.0f);
-	//0.04*(-65*-65)+5*-65+140-8+4
-	if(output[0]==-4.0f)
-		std::cout << "OK" << std::endl;
-	else
-		std::cout << output[0] << std::endl;
+	std::array<float, MAX_EQUATIONS> output = func.modelDiferentialEquation(4.0f);
+	
+	TEST_ASSERT_(floatIsEqual(output[0], -4.0f), "Izhikevich_v' = %lf == %lf",
+												output[0], -4.0f);
+
+	TEST_ASSERT_(floatIsEqual(output[1], -0.1f), "Izhikevich_u' = %lf == %lf",
+												output[1], -0.1f);
 }
 
-int main(int argc, char const *argv[]){
-	testAlphaFunction();
-	testIzhikevichModel();
-	return 0;
-}
+TEST_LIST = {
+	{"Alpha Diferential Equation", test_AlphaDiferentialEquation},
+	{"Izhikevich Diferential Equation", test_IzhikevichDiferentialEquation},
+	{0}
+};

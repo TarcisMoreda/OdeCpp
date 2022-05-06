@@ -10,7 +10,7 @@ namespace ode{
 	public:
 		AlphaFunction(const float state, const float thau, const float weight);
 
-		float* modelDiferentialEquation(const float input);
+		std::array<float, MAX_EQUATIONS> modelDiferentialEquation(const float input);
 		bool equals(const AlphaFunction* other);
 	};
 } // namespace ode

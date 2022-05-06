@@ -1,16 +1,16 @@
 #pragma once
 #include <array>
 
+#define MAX_EQUATIONS 8
+
 namespace ode{
 	class OdeModel{
 	protected:
-		int numEquations = 0;
-		float* state = nullptr;
+		int numEquations;
+		std::array<float, MAX_EQUATIONS> state;
 		float time = 0.0f;
 	
 	public:
-		OdeModel(const int numEquations);
-
-		virtual float* modelDiferentialEquation(float input) = 0;
+		virtual std::array<float, MAX_EQUATIONS> modelDiferentialEquation(const float input) = 0;
 	};
 } // namespace ode
