@@ -7,7 +7,7 @@ OBJ=obj
 SRCS=$(wildcard $(SRC)/*.cpp)
 OBJS=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 HDRS=$(wildcard $(INC)/*.hpp)
-LIB=odeSolver.so
+LIB=OdeCpp.so
 
 all: $(LIB)
 
