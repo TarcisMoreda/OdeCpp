@@ -24,7 +24,7 @@ Será gerado o arquivo OdeCpp.so para a biblioteca.
 
 ## Testes
 ### Preparação
-Adicione o arquivo acutest.hpp na pasta tests, basta pega-lo da biblioteca:
+A biblioteca acutest.hpp está incluída de acordo com o Copyright escrito na mesma, créditos ao autor:
 
 https://github.com/mity/acutest
 
