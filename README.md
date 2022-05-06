@@ -4,10 +4,12 @@
 	- [Sumário](#sumário)
 	- [Compilando](#compilando)
 		- [Preparação](#preparação)
-		- [Compilação](#compilação)
+		- [Clonar repositório](#clonar-repositório)
+		- [Dinâmica](#dinâmica)
+		- [Estática](#estática)
 	- [Utilização](#utilização)
 		- [Dinânica](#dinânica)
-		- [Estática](#estática)
+		- [Estática](#estática-1)
 		- [Observação](#observação)
 	- [Testes](#testes)
 		- [Preparação](#preparação-1)
@@ -15,19 +17,32 @@
 
 ## Compilando
 ### Preparação
-Tenha certeza de ter o git e g++ instalados.
+Tenha certeza de ter o git, g++, e make instalados.
 
-### Compilação
-Compile a biblioteca:
+Ubuntu/Debian:
+```
+sudo apt install build-essential git
+```
+Arch:
+```
+sudo pacman -S base-devel git
+```
+
+### Clonar repositório
 ```
 git clone https://github.com/TarcisMoreda/OdeCpp.git
 cd OdeCpp/build
 ```
-Para a biblioteca dinânica(.so):
+### Dinâmica
 ```
 make dynamic
+sudo make install
 ```
-Para a biblioteca estática(.a):
+Isso irá instalar a biblioteca nos locais padrões do Linux.
+
+Obs.: É nescessário utilizar sudo para a instalação, ela cria diretórios e move arquivos em pastas protegidas do sistema.
+
+### Estática
 ```
 make static
 ```
@@ -38,14 +53,6 @@ make
 
 ## Utilização
 ### Dinânica
-Para usar a biblioteca dinâmica use o comando:
-```
-make install
-```
-Ele irá compilar a biblioteca antes de instalar automáticamente, não se preocupe.
-
-Isso irá instalar a biblioteca nos locais padrões do Linux.
-
 Inclua a biblioteca no início do seu código com:
 ```
 #include <OdeCpp/OdeCpp.h>

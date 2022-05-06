@@ -20,8 +20,8 @@ ode::IzhikevichModel::IzhikevichModel(const float a, const float b, const float 
  *	Faz o cálculo diferencial da função alfa.
  *	v' = 0.04*(v^2)+5*v+140-u+I
  *	u' = a*(b-v)
- *	@param		input A corrente de entrada.
- *	@return		Um array contendo v' no index 0.
+ *	@param input	A corrente de entrada.
+ *	@return			Um std::array contendo v' no index 0 e u' no index 1.
  */
 std::array<float, MAX_EQUATIONS> ode::IzhikevichModel::modelDiferentialEquation(const float input){
 	std::array<float, MAX_EQUATIONS> newState;
@@ -44,6 +44,11 @@ bool ode::IzhikevichModel::equals(const IzhikevichModel* other){
 	return false;
 }
 
+/*
+ *	Insere um observador através de seu ponteiro.
+ *	obs: Usuário deve especificar sua implementacao de observer.SpikeFired(float time)
+ *	@param observer	Ponteiro para um observador.
+ */
 void ode::IzhikevichModel::attachObserver(SpikeObserver& observer){
 	this->observers.push_back(&observer);
 }

@@ -17,7 +17,7 @@ PREFIX=OdeCpp
 
 all: dynamic static
 
-install: dynamic
+install:
 	mkdir -p $(DESTDIR)/include/$(PREFIX)/
 	cp -r $(INC)/* $(DESTDIR)/include/$(PREFIX)/
 	mkdir -p $(DESTDIR)/lib/

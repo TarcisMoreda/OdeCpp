@@ -16,8 +16,8 @@ ode::AlphaFunction::AlphaFunction(const float state, const float thau, const flo
 /*
  *	Faz o cálculo diferencial da função alfa.
  *	v' = tau*v+(I*peso)
- *	@param		input A corrente de entrada.
- *	@return		Um array contendo v' no index 0.
+ *	@param input	A corrente de entrada.
+ *	@return			Um std::array contendo v' no index 0.
  */
 std::array<float, MAX_EQUATIONS> ode::AlphaFunction::modelDiferentialEquation(const float input){
 	std::array<float, MAX_EQUATIONS> newState;
