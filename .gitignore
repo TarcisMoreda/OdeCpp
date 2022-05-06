@@ -1,6 +1,8 @@
 .vscode
-build/odeSolver.so
-build/obj
+build/OdeCpp.so
+build/OdeCpp.a
+build/obj_dyn
+build/obj_stt
 tests/acutest.hpp
 tests/tests.bin
 tests/obj

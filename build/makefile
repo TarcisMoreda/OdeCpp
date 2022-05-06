@@ -1,25 +1,39 @@
 CC=g++
-FLAGS=-g -Wall -O2 -fPIC
+FLAGS=-g -Wall -O2 -std=c++11
 
 SRC=../src
 INC=../include
-OBJ=obj
+OBJ_DYN=obj_dyn
+OBJ_STT=obj_stt
 SRCS=$(wildcard $(SRC)/*.cpp)
-OBJS=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
+OBJS_DYN=$(patsubst $(SRC)/%.cpp, $(OBJ_DYN)/%.o, $(SRCS))
+OBJS_STT=$(patsubst $(SRC)/%.cpp, $(OBJ_STT)/%.o, $(SRCS))
 HDRS=$(wildcard $(INC)/*.hpp)
-LIB=OdeCpp.so
+LIB_DYN=OdeCpp.so
+LIB_STT=OdeCpp.a
 
-all: $(LIB)
+dynamic: $(LIB_DYN)
 
-$(LIB): $(OBJS) $(OBJ)
-	$(CC) $(FLAGS) $(OBJS) -shared -o $(LIB)
+$(LIB_DYN): $(OBJS_DYN) $(OBJ_DYN)
+	$(CC) $(OBJS_DYN) $(FLAGS) -fPIC -shared -o $(LIB_DYN)
 
-$(OBJ)/%.o: $(SRC)/%.cpp $(OBJ)
-	$(CC) $(FLAGS) -c $< -o $@
+$(OBJ_DYN)/%.o: $(SRC)/%.cpp $(OBJ_DYN)
+	$(CC) $(FLAGS) -fPIC -c $< -o $@
 
-$(OBJ):
+$(OBJ_DYN):
+	mkdir -p $@
+
+static: $(LIB_STT)
+
+$(LIB_STT): $(OBJS_STT) $(OBJ_STT)
+	ar rcs $(LIB_STT) $(OBJS_STT)
+
+$(OBJ_STT)/%.o: $(SRC)/%.cpp $(OBJ_STT)
+	$(CC) $(FLAGS) -fPIC -c $< -o $@
+
+$(OBJ_STT):
 	mkdir -p $@
 
 clean:
-	$(RM) -r $(OBJ)
-	$(RM) $(LIB)
+	$(RM) -r $(OBJ_DYN) $(OBJ_STT)
+	$(RM) $(LIB_DYN) $(LIB_STT)
