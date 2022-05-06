@@ -9,10 +9,19 @@ SRCS=$(wildcard $(SRC)/*.cpp)
 OBJS_DYN=$(patsubst $(SRC)/%.cpp, $(OBJ_DYN)/%.o, $(SRCS))
 OBJS_STT=$(patsubst $(SRC)/%.cpp, $(OBJ_STT)/%.o, $(SRCS))
 HDRS=$(wildcard $(INC)/*.hpp)
-LIB_DYN=OdeCpp.so
-LIB_STT=OdeCpp.a
+LIB_DYN=libOdeCpp.so
+LIB_STT=libOdeCpp.a
+
+DESTDIR=/usr
+PREFIX=OdeCpp
 
 all: dynamic static
+
+install: dynamic
+	mkdir -p $(DESTDIR)/include/$(PREFIX)/
+	cp -r $(INC)/* $(DESTDIR)/include/$(PREFIX)/
+	mkdir -p $(DESTDIR)/lib/
+	cp $(LIB_DYN) $(DESTDIR)/lib/
 
 dynamic: $(LIB_DYN)
 

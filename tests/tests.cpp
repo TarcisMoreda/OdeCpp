@@ -1,5 +1,5 @@
-#include "./acutest.hpp"
-#include "../include/OdeSolver.hpp"
+#include "acutest.hpp"
+#include "../include/OdeCpp.hpp"
 #include <iostream>
 #include <cmath>
 
