@@ -1,19 +1,19 @@
 # OdeCPP
-## Sumário:
+## Sumário
 - [OdeCPP](#odecpp)
-	- [Sumário:](#sumário)
-	- [Compilando:](#compilando)
-		- [Preparação:](#preparação)
-		- [Compilação:](#compilação)
-	- [Testes:](#testes)
-		- [Preparação:](#preparação-1)
-		- [Utilização:](#utilização)
+	- [Sumário](#sumário)
+	- [Compilando](#compilando)
+		- [Preparação](#preparação)
+		- [Compilação](#compilação)
+	- [Testes](#testes)
+		- [Preparação](#preparação-1)
+		- [Utilização](#utilização)
 
-## Compilando:
-### Preparação:
+## Compilando
+### Preparação
 Tenha certeza de ter o git e g++ instalados.
 
-### Compilação:
+### Compilação
 Compile a biblioteca:
 ```
 git clone https://github.com/TarcisMoreda/OdeCpp.git
@@ -22,13 +22,13 @@ make
 ```
 Será gerado o arquivo OdeCpp.so para a biblioteca.
 
-## Testes:
-### Preparação:
+## Testes
+### Preparação
 Adicione o arquivo acutest.hpp na pasta tests, basta pega-lo da biblioteca:
 
 https://github.com/mity/acutest
 
-### Utilização:
+### Utilização
 Compile o teste:
 ```
 cd OdeCpp/tests
