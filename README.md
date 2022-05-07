@@ -82,7 +82,7 @@ g++ main.cpp -L./lib -lOdeCpp -o main.bin
 ```
 
 ### Observação
-Para os menos informados uma biblioteca dinâmica irá ser lida na execução do programa, dessa forma caso seja atualizada o programa não precisará ser recompilado, a não ser que a versão nova mude o nome ou retire funções.
+Uma biblioteca dinâmica irá ser lida na execução do programa, dessa forma caso seja atualizada o programa não precisará ser recompilado, a não ser que a versão nova mude o nome ou retire funções.
 
 Já uma biblioteca estática é inserida dentro do binário do programa, fazendo o tamanho do programa e o tempo de compilação maiores, e caso haja uma atualização da biblioteca o programa deverá ser recompilado, porém há benefício de performance.
 
