@@ -2,7 +2,7 @@
 #include "OdeModel.hpp"
 
 namespace ode{
-	class AlphaFunction: OdeModel{
+	class AlphaFunction: public OdeModel{
 	private:
 		float thau;
 		float weight;

@@ -20,7 +20,6 @@ all: dynamic static
 install:
 	mkdir -p $(DESTDIR)/include/$(PREFIX)/
 	cp -r $(INC)/* $(DESTDIR)/include/$(PREFIX)/
-	mkdir -p $(DESTDIR)/lib/
 	cp $(LIB_DYN) $(DESTDIR)/lib/
 
 dynamic: $(LIB_DYN)

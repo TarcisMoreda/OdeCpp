@@ -1,9 +1,9 @@
 #pragma once
 #include <array>
 
-#define MAX_EQUATIONS 8
-
 namespace ode{
+	#define MAX_EQUATIONS 8
+
 	class OdeModel{
 	protected:
 		int numEquations;
