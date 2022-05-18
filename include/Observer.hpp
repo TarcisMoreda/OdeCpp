@@ -1,6 +1,7 @@
 #pragma once
 
 #include <list>
+#include <algorithm>
 #include <memory>
 
 namespace ode{
@@ -27,7 +28,7 @@ namespace ode{
 		}
 
 		void detachObserver(std::shared_ptr<IObserver> observer){
-			auto iterator = std::find(this->observers.begin(), this->observers.end(), &observer);
+			auto iterator = std::find(this->observers.begin(), this->observers.end(), observer);
 
 			if(iterator != this->observers.end())
 				observers.erase(iterator);

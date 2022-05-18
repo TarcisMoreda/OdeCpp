@@ -2,15 +2,17 @@
 #include <array>
 
 namespace ode{
-	#define MAX_EQUATIONS 8
-
+	template <int MAX_EQUATIONS>
 	class OdeModel{
 	protected:
-		int numEquations;
+		int numEquations=MAX_EQUATIONS;
 		std::array<float, MAX_EQUATIONS> state;
 		float time = 0.0f;
 	
 	public:
 		virtual std::array<float, MAX_EQUATIONS> modelDiferentialEquation(const float input) = 0;
+		int getNumEquations(){
+			return this->numEquations;
+		}
 	};
 } // namespace ode

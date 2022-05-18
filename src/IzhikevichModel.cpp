@@ -19,14 +19,14 @@ IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, co
 }
 
 /*
- *	Faz o cálculo diferencial da função alfa.
+ *	Faz o cálculo diferencial do neurônio.
  *	v' = 0.04*(v^2)+5*v+140-u+I
  *	u' = a*(b-v)
  *	@param input	A corrente de entrada.
  *	@return			Um std::array contendo v' no index 0 e u' no index 1.
  */
-std::array<float, MAX_EQUATIONS> IzhikevichModel::modelDiferentialEquation(const float input){
-	std::array<float, MAX_EQUATIONS> newState;
+std::array<float, 2> IzhikevichModel::modelDiferentialEquation(const float input){
+	std::array<float, 2> newState;
 	newState[0] = 0.04f*(this->state[0]*this->state[0])+5.0f*this->state[0]+140.0f-this->state[1]+input;
 	newState[1] = this->a*(this->b*this->state[0]-this->state[1]);
 

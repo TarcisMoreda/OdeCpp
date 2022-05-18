@@ -21,8 +21,8 @@ AlphaFunction::AlphaFunction(const float state, const float thau, const float we
  *	@param input	A corrente de entrada.
  *	@return			Um std::array contendo v' no index 0.
  */
-std::array<float, MAX_EQUATIONS> AlphaFunction::modelDiferentialEquation(const float input){
-	std::array<float, MAX_EQUATIONS> newState;
+std::array<float, 1> AlphaFunction::modelDiferentialEquation(const float input){
+	std::array<float, 1> newState;
 	newState[0] = this->thau*this->state[0]+(input*this->weight);
 
 	return newState;

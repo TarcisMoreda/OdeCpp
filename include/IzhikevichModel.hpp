@@ -4,18 +4,18 @@
 #include "Observer.hpp"
 
 namespace ode{
-	class IzhikevichModel: public OdeModel, public ObserverSubject{
+	class IzhikevichModel: public OdeModel<2>, public ObserverSubject{
 	private:
 		float a, b, c, d;
 
 	public:
 		IzhikevichModel(const float a, const float b, const float c, const float d);	
 
-		std::array<float, MAX_EQUATIONS> modelDiferentialEquation(const float input);
+		std::array<float, 2> modelDiferentialEquation(const float input);
 		bool equals(const IzhikevichModel* other);
 	};
-
-	class Spike: public Observer{
+	
+	class SpikeObserver: public IObserver{
 		void notification(const float time) override;
 	};
 }
