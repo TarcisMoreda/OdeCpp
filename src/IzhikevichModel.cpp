@@ -45,32 +45,3 @@ bool IzhikevichModel::equals(const IzhikevichModel* other){
 
 	return false;
 }
-
-/*
- *	Insere um observador através de seu ponteiro.
- *	obs: Usuário deve especificar sua implementacao de observer.SpikeFired(const float time)
- *	@param observer	Ponteiro para um observador.
- */
-void IzhikevichModel::attachObserver(Observer<float>& observer){
-	this->observers.push_back(&observer);
-}
-
-/*
- *	Remove um observador através de seu ponteiro.
- *	@param observer	Ponteiro para um observador.
- */
-void IzhikevichModel::detachObserver(Observer<float>& observer){
-	auto iterator = std::find(this->observers.begin(), this->observers.end(), &observer);
-
-	if(iterator != this->observers.end())
-		observers.erase(iterator);
-}
-
-/*
- *	Notifica os observadores que um spike aconteceu, o que acontece quando essa funcao é chamada será a funcao observer.spikeFired(const float time).
- *	@param observer	Ponteiro para um observador.
- */
-void IzhikevichModel::notifyObservers(){
-	for(Observer<float>* observer: this->observers)
-		observer->notification(this->time);
-}

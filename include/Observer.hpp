@@ -1,22 +1,36 @@
 #pragma once
 
-#include <vector>
+#include <list>
+#include <memory>
 
 namespace ode{
-	template <typename T>
-	class Observer{
+	class IObserver{
 	public:
-		virtual T notification(const float time) = 0;
+		virtual void notification(const float time) = 0;
 	};
 
-	template <typename T>
 	class ObserverSubject{
-	protected:
-		std::vector<Observer<T>*> observers;
+	private:
+		std::list<std::shared_ptr<IObserver>> observers;
+		virtual void notifyObservers(const float time){
+			for(std::shared_ptr<IObserver> observer: this->observers)
+				observer->notification(time);
+		}
 
 	public:
-		virtual void attachObserver(Observer<T>& observer) = 0;
-		virtual void detachObserver(Observer<T>& observer) = 0;
-		virtual void notifyObservers() = 0;
+		/*
+ 		*	Insere um observador através de seu ponteiro.
+ 		*	@param observer	Ponteiro para um observador.
+ 		*/
+		void attachObserver(std::shared_ptr<IObserver> observer){
+			this->observers.push_back(observer);
+		}
+
+		void detachObserver(std::shared_ptr<IObserver> observer){
+			auto iterator = std::find(this->observers.begin(), this->observers.end(), &observer);
+
+			if(iterator != this->observers.end())
+				observers.erase(iterator);
+		}
 	};
 } // namespace ode
