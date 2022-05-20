@@ -7,6 +7,10 @@
 namespace ode{
 	class IObserver{
 	public:
+		/*
+ 		*	Função que é executada ao notificar os observadores.
+ 		*	@param observer	Ponteiro para um observador.
+ 		*/
 		virtual void notification(const float time) = 0;
 	};
 
@@ -27,6 +31,10 @@ namespace ode{
 			this->observers.push_back(observer);
 		}
 
+		/*
+ 		*	Remove um observador através de seu ponteiro.
+ 		*	@param observer	Ponteiro para um observador.
+ 		*/
 		void detachObserver(std::shared_ptr<IObserver> observer){
 			auto iterator = std::find(this->observers.begin(), this->observers.end(), observer);
 

@@ -3,7 +3,8 @@ build/libOdeCpp.so
 build/libOdeCpp.a
 build/obj_dyn
 build/obj_stt
-tests/acutest.hpp
-tests/tests.bin
+tests/report
 tests/obj
+tests/tests.gcda
+tests/tests.gcno
 docs/OdeCpp.jpg.bak

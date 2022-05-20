@@ -18,9 +18,13 @@ PREFIX=OdeCpp
 all: dynamic static
 
 install:
-	mkdir -p $(DESTDIR)/include/$(PREFIX)/
-	cp -r $(INC)/* $(DESTDIR)/include/$(PREFIX)/
-	cp $(LIB_DYN) $(DESTDIR)/lib/
+	@echo "Installing dynamic library..."
+	@echo "Creating directory: $(DESTDIR)/include/$(PREFIX)/"
+	@mkdir -p $(DESTDIR)/include/$(PREFIX)/
+	@echo "Moving headers to $(DESTDIR)/include/$(PREFIX)/"
+	@cp -r $(INC)/* $(DESTDIR)/include/$(PREFIX)/
+	@echo "Moving dynamic library to $(DESTDIR)/lib/"
+	@cp $(LIB_DYN) $(DESTDIR)/lib/
 
 dynamic: $(LIB_DYN)
 
@@ -31,18 +35,20 @@ $(OBJ_DYN)/%.o: $(SRC)/%.cpp $(OBJ_DYN)
 	$(CC) $(FLAGS) -fPIC -c $< -o $@
 
 $(OBJ_DYN):
-	mkdir -p $@
+	@mkdir -p $@
 
 static: $(LIB_STT)
 
 $(LIB_STT): $(OBJS_STT) $(OBJ_STT)
-	ar rcs $(LIB_STT) $(OBJS_STT)
+	@echo "Creating static library..."
+	@echo "Linking static library..."
+	@ar rcs $(LIB_STT) $(OBJS_STT)
 
 $(OBJ_STT)/%.o: $(SRC)/%.cpp $(OBJ_STT)
 	$(CC) $(FLAGS) -fPIC -c $< -o $@
 
 $(OBJ_STT):
-	mkdir -p $@
+	@mkdir -p $@
 
 clean:
 	$(RM) -r $(OBJ_DYN) $(OBJ_STT)

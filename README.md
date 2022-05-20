@@ -7,13 +7,14 @@
 		- [Clonar repositório](#clonar-repositório)
 		- [Dinâmica](#dinâmica)
 		- [Estática](#estática)
-	- [Utilização](#utilização)
-		- [Dinânica](#dinânica)
+		- [Ambos](#ambos)
+	- [Utilizando](#utilizando)
+		- [Dinâmica](#dinâmica-1)
 		- [Estática](#estática-1)
 		- [Observação](#observação)
 	- [Testes](#testes)
-		- [Preparação](#preparação-1)
-		- [Utilização](#utilização-1)
+		- [Créditos](#créditos)
+		- [Utilização](#utilização)
 
 ## Compilando
 ### Preparação
@@ -40,19 +41,19 @@ sudo make install
 ```
 Isso irá instalar a biblioteca nos locais padrões do Linux.
 
-Obs.: É nescessário utilizar sudo para a instalação, ela cria diretórios e move arquivos em pastas protegidas do sistema.
+Obs.: É nescessário utilizar sudo para a instalação, ela cria diretórios e move arquivos em pastas protegidas do sistema (/usr/include e /usr/lib).
 
 ### Estática
 ```
 make static
 ```
-Para ambos:
+### Ambos
 ```
 make
 ```
 
-## Utilização
-### Dinânica
+## Utilizando
+### Dinâmica
 Inclua a biblioteca no início do seu código com:
 ```
 #include <OdeCpp/OdeCpp.h>
@@ -87,7 +88,7 @@ Uma biblioteca dinâmica irá ser lida na execução do programa, dessa forma ca
 Já uma biblioteca estática é inserida dentro do binário do programa, fazendo o tamanho do programa e o tempo de compilação maiores, e caso haja uma atualização da biblioteca o programa deverá ser recompilado, porém há benefício de performance.
 
 ## Testes
-### Preparação
+### Créditos
 A biblioteca acutest.hpp está incluída de acordo com o Copyright escrito na mesma, créditos ao autor:
 
 https://github.com/mity/acutest
