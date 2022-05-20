@@ -5,6 +5,6 @@
 namespace ode{
 	class OdeSolver{
 		public:
-			virtual void step(const OdeModel& model, const float interval, const float input) = 0;
+			virtual void step(OdeModel& model ,const float interval, const float input) = 0;
 	};
 } // namespace ode

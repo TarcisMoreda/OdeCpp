@@ -4,14 +4,14 @@
 #include "Observer.hpp"
 
 namespace ode{
-	class IzhikevichModel: public OdeModel<2>, public ObserverSubject{
+	class IzhikevichModel: public OdeModel, public ObserverSubject{
 	private:
 		float a, b, c, d;
 
 	public:
 		IzhikevichModel(const float a, const float b, const float c, const float d);	
 
-		std::array<float, 2> modelDiferentialEquation(const float input);
+		std::vector<float> modelDiferentialEquation(const float input);
 		bool equals(const IzhikevichModel* other);
 	};
 	

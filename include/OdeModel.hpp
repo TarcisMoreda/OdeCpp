@@ -1,18 +1,33 @@
 #pragma once
-#include <array>
+#include <vector>
 
 namespace ode{
-	template <int MAX_EQUATIONS>
 	class OdeModel{
 	protected:
-		int numEquations=MAX_EQUATIONS;
-		std::array<float, MAX_EQUATIONS> state;
+		int numEquations;
+		std::vector<float> state;
 		float time = 0.0f;
 	
 	public:
-		virtual std::array<float, MAX_EQUATIONS> modelDiferentialEquation(const float input) = 0;
-		std::array<float, MAX_EQUATIONS> getState(){
+		OdeModel(int numEquations){
+			this->numEquations = numEquations;
+		}
+		virtual std::vector<float> modelDiferentialEquation(const float input) = 0;
+		
+		void setState(const std::vector<float> state){
+			this->state = state;
+		}
+		std::vector<float> getState(){
 			return this->state;
+		}
+		void setTime(const float time){
+			this->time = time;
+		}
+		float getTime(){
+			return this->time;
+		}
+		void addTime(const float interval){
+			this->time += interval;
 		}
 		int getNumEquations(){
 			return this->numEquations;

@@ -2,7 +2,7 @@
 #include "OdeModel.hpp"
 
 namespace ode{
-	class AlphaFunction: public OdeModel<1>{
+	class AlphaFunction: public OdeModel{
 	private:
 		float thau;
 		float weight;
@@ -10,7 +10,7 @@ namespace ode{
 	public:
 		AlphaFunction(const float thau, const float weight, const float state=0);
 
-		std::array<float, 1> modelDiferentialEquation(const float input);
+		std::vector<float> modelDiferentialEquation(const float input);
 		bool equals(const AlphaFunction* other);
 	};
 } // namespace ode
