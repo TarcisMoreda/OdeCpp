@@ -8,7 +8,7 @@ namespace ode{
 		float weight;
 
 	public:
-		AlphaFunction(const float state, const float thau, const float weight);
+		AlphaFunction(const float thau, const float weight, const float state=0);
 
 		std::array<float, 1> modelDiferentialEquation(const float input);
 		bool equals(const AlphaFunction* other);

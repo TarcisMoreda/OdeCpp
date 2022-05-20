@@ -11,6 +11,9 @@ namespace ode{
 	
 	public:
 		virtual std::array<float, MAX_EQUATIONS> modelDiferentialEquation(const float input) = 0;
+		std::array<float, MAX_EQUATIONS> getState(){
+			return this->state;
+		}
 		int getNumEquations(){
 			return this->numEquations;
 		}

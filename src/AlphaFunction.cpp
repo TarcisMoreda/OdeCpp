@@ -8,7 +8,7 @@ using namespace ode;
  *	@param thau		O valor de tau (obs: ele calcula -1/tau dentro da função).
  *	@param weight	O peso da função.
  */
-AlphaFunction::AlphaFunction(const float state, const float thau, const float weight){
+AlphaFunction::AlphaFunction(const float thau, const float weight, const float state){
 	this->state[0] = state;
 	this->thau = (-1.0f/thau);
 	this->weight = weight;

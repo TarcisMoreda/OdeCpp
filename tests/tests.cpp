@@ -7,6 +7,23 @@ TEST(AlphaTest, DiferentialEquation){
 	std::array<float, 1> out = func.modelDiferentialEquation(2.0f);
 	EXPECT_FLOAT_EQ(out[0], 5.9f);
 };
+TEST(AlphaTest, Step){
+	ode::Ode1Solver<1> solver;
+	ode::AlphaFunction func(10.0f, 2.0f);
+
+	const int NUM_ELEMENTS = 12;
+
+	float inputs[] = {0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0};
+	float expectedOut[] = {0.0f, 2.0f, 1.8f, 1.62f, 1.458f, 1.3122f, 1.18098f, 1.0628820f, 
+						   2.9565938f, 2.66093442f, 2.394840978f, 2.15535688f};
+	float testOut[NUM_ELEMENTS];
+
+	for(size_t i=0; i<NUM_ELEMENTS; ++i){
+		solver.step(func, 1, inputs[i]);
+		testOut[i] = func.getState()[0];
+		EXPECT_FLOAT_EQ(testOut[i], expectedOut[i]);
+	}
+};
 
 //Testes da função diferencial do neurônio Izhikevich
 TEST(IzhikevichTest, DiferentialEquation1){

@@ -5,4 +5,4 @@
 #include "IzhikevichModel.hpp"
 #include "Observer.hpp"
 #include "OdeSolver.hpp"
-#include "EulerSystem.hpp"
+#include "Ode1Solver.hpp"
