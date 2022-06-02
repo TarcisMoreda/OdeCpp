@@ -44,3 +44,7 @@ bool IzhikevichModel::equals(const IzhikevichModel* other){
 
 	return false;
 }
+
+float IzhikevichModel::getParams(){
+	return this->d;
+}

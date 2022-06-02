@@ -13,6 +13,7 @@ namespace ode{
 
 		std::vector<float> modelDiferentialEquation(const float input);
 		bool equals(const IzhikevichModel* other);
+		float getParams();
 	};
 	
 	class SpikeObserver: public IObserver{
