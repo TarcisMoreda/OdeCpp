@@ -24,8 +24,8 @@ IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, co
  *	@param input	A corrente de entrada.
  *	@return			Um std::array contendo v' no index 0 e u' no index 1.
  */
-std::vector<float> IzhikevichModel::modelDiferentialEquation(const float input){
-	std::vector<float> newState;
+float* IzhikevichModel::modelDiferentialEquation(const float input){
+	float newState[this->numEquations];
 	newState[0] = 0.04f*(this->state[0]*this->state[0])+5.0f*this->state[0]+140.0f-this->state[1]+input;
 	newState[1] = this->a*(this->b*this->state[0]-this->state[1]);
 
