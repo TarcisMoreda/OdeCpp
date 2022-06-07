@@ -11,10 +11,10 @@ namespace ode{
 	
 	public:
 		OdeModel();
-		virtual float* modelDiferentialEquation(const float input) = 0;
+		virtual std::array<float, N> modelDiferentialEquation(const float input) = 0;
 		virtual float getParams() = 0;
 
-		void setState(const float state[]){
+		void setState(const std::array<float, 2> state){
 			for(int i=0; i<this->numEquations; ++i)
 				this->state[i] = state[i];
 		}

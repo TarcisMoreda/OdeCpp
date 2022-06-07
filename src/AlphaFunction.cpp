@@ -6,9 +6,9 @@ using namespace ode;
  *	Construtor da função alfa.
  *	@param state	Estado inicial da função.
  *	@param thau		O valor de tau (obs: ele calcula -1/tau dentro da função).
- *	@param weight	O peso da função.
+ *	@param weight	O peso da função. (Padrão = 0)
  */
-AlphaFunction::AlphaFunction(const float thau, const float weight, const float state): OdeModel::OdeModel(1){
+AlphaFunction::AlphaFunction(const float thau, const float weight, const float state=0): OdeModel::OdeModel(){
 	this->state[0] = state;
 	this->thau = (-1.0f/thau);
 	this->weight = weight;
@@ -20,8 +20,8 @@ AlphaFunction::AlphaFunction(const float thau, const float weight, const float s
  *	@param input	A corrente de entrada.
  *	@return			Um std::array contendo v' no index 0.
  */
-std::vector<float> AlphaFunction::modelDiferentialEquation(const float input){
-	std::vector<float> newState;
+std::array<float, 1> AlphaFunction::modelDiferentialEquation(const float input){
+	std::array<float, 1> newState;
 	newState[0] = this->thau*this->state[0]+(input*this->weight);
 
 	return newState;

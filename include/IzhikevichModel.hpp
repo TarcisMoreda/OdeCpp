@@ -11,7 +11,7 @@ namespace ode{
 	public:
 		IzhikevichModel(const float a, const float b, const float c, const float d);	
 
-		float* modelDiferentialEquation(const float input);
+		std::array<float, 2> modelDiferentialEquation(const float input);
 		bool equals(const IzhikevichModel* other);
 		float getParams();
 	};
