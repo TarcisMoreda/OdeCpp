@@ -4,12 +4,12 @@
 //Teste da função diferencial alfa
 TEST(AlphaTest, DiferentialEquation){
 	ode::AlphaFunction func(1.0f, 10.0f, 3.0f);
-	std::array<float, 1> out = func.modelDiferentialEquation(2.0f);
+	std::vector<float> out = func.modelDiferentialEquation(2.0f);
 	EXPECT_FLOAT_EQ(out[0], 5.9f);
 };
 TEST(AlphaTest, Step){
-	ode::Ode1Solver<1> solver;
-	ode::AlphaFunction func(10.0f, 2.0f);
+	ode::Ode1Solver solver;
+	ode::AlphaFunction func(0.0f, 10.0f, 2.0f);
 
 	const int NUM_ELEMENTS = 12;
 
@@ -28,12 +28,12 @@ TEST(AlphaTest, Step){
 //Testes da função diferencial do neurônio Izhikevich
 TEST(IzhikevichTest, DiferentialEquation1){
 	ode::IzhikevichModel func(0.02f, 0.2f, -65.0f, 8.0f);
-	std::array<float, 2> out = func.modelDiferentialEquation(4.0f);
+	std::vector<float> out = func.modelDiferentialEquation(4.0f);
 	EXPECT_FLOAT_EQ(out[0], -4.0f);
 };
 TEST(IzhikevichTest, DiferentialEquation2){
 	ode::IzhikevichModel func(0.02f, 0.2f, -65.0f, 8.0f);
-	std::array<float, 2> out = func.modelDiferentialEquation(4.0f);
+	std::vector<float> out = func.modelDiferentialEquation(4.0f);
 	EXPECT_FLOAT_EQ(out[1], -0.1f);
 };
 

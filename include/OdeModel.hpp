@@ -1,24 +1,25 @@
 #pragma once
-#include <array>
+#include <vector>
 
 namespace ode{
-	template<std::size_t N>
 	class OdeModel{
 	protected:
 		int numEquations;
-		std::array<float, N> state;
+		std::vector<float> state;
 		float time = 0.0f;
 	
 	public:
-		OdeModel();
-		virtual std::array<float, N> modelDiferentialEquation(const float input) = 0;
+		OdeModel(int numEquations){
+			this->numEquations = numEquations;
+		}
+
+		virtual std::vector<float> modelDiferentialEquation(const float input) = 0;
 		virtual float getParams() = 0;
 
-		void setState(const std::array<float, 2> state){
-			for(int i=0; i<this->numEquations; ++i)
-				this->state[i] = state[i];
+		void setState(const std::vector<float> state){
+			this->state = state;
 		}
-		std::array<float, N> getState(){
+		std::vector<float> getState(){
 			return this->state;
 		}
 		void setTime(const float time){

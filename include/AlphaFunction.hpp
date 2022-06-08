@@ -2,15 +2,16 @@
 #include "OdeModel.hpp"
 
 namespace ode{
-	class AlphaFunction: public OdeModel<1>{
+	class AlphaFunction: public OdeModel{
 	private:
 		float thau;
 		float weight;
 
 	public:
-		AlphaFunction(const float thau, const float weight, const float state=0);
+		AlphaFunction(const float state, const float thau, const float weight);
 
-		std::array<float, 1> modelDiferentialEquation(const float input);
+		std::vector<float> modelDiferentialEquation(const float input);
 		bool equals(const AlphaFunction* other);
+		float getParams();
 	};
 } // namespace ode
