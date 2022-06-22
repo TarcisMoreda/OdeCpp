@@ -44,7 +44,26 @@ namespace ode{
 		return false;
 	}
 	
-	float IzhikevichModel::getParams(){
-		return this->d;
+	float IzhikevichModel::getParams(const char param){
+		switch (param){
+		case 'a':
+			return this->a;
+			break;
+		
+		case 'b':
+			return this->b;
+			break;
+
+		case 'c':
+			return this->c;
+			break;
+
+		case 'd':
+			return this->d;
+			break;
+
+		default:
+			break;
+		}
 	}
 }

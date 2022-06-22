@@ -38,7 +38,7 @@ namespace ode{
 		return false;
 	}
 
-	float AlphaFunction::getParams(){
+	float AlphaFunction::getParams(const char param){
 		return this->thau;
 	}
 }

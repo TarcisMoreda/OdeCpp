@@ -1,4 +1,5 @@
 #pragma once
+
 #include "OdeModel.hpp"
 #include "Observer.hpp"
 
@@ -12,7 +13,7 @@ namespace ode{
 
 		std::vector<float> modelDiferentialEquation(const float input);
 		bool equals(const IzhikevichModel* other);
-		float getParams();
+		float getParams(const char param);
 	};
 	
 	class SpikeObserver: public IObserver{

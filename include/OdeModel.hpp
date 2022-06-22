@@ -1,4 +1,5 @@
 #pragma once
+
 #include <vector>
 
 namespace ode{
@@ -14,7 +15,7 @@ namespace ode{
 		}
 
 		virtual std::vector<float> modelDiferentialEquation(const float input) = 0;
-		virtual float getParams() = 0;
+		virtual float getParams(const char param) = 0;
 
 		void setState(const std::vector<float> state){
 			this->state = state;

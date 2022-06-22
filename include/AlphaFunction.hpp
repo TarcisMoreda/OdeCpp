@@ -1,4 +1,5 @@
 #pragma once
+
 #include "OdeModel.hpp"
 
 namespace ode{
@@ -12,6 +13,6 @@ namespace ode{
 
 		std::vector<float> modelDiferentialEquation(const float input);
 		bool equals(const AlphaFunction* other);
-		float getParams();
+		float getParams(const char param);
 	};
 } // namespace ode
