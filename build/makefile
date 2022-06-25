@@ -17,7 +17,7 @@ PREFIX=OdeCpp
 
 all: dynamic static
 
-install:
+install: dynamic
 	@echo "Installing dynamic library..."
 	@echo "Creating directory: $(DESTDIR)/include/$(PREFIX)/"
 	@mkdir -p $(DESTDIR)/include/$(PREFIX)/

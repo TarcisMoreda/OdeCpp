@@ -11,18 +11,23 @@ namespace ode{
  		*	Função que é executada ao notificar os observadores.
  		*	@param observer	Ponteiro para um observador.
  		*/
-		virtual void notification(const float time) = 0;
+		virtual float notification(const float time) = 0;
 	};
 
 	class ObserverSubject{
 	private:
 		std::list<std::shared_ptr<IObserver>> observers;
-		virtual void notifyObservers(const float time){
+
+	public:
+		/*
+ 		 *	Notifica os observadores do acontecimento de um evento.
+ 		 *	@param time	Tempo do acontecimento.
+ 		 */
+		void notifyObservers(const float time){
 			for(std::shared_ptr<IObserver> observer: this->observers)
 				observer->notification(time);
 		}
 
-	public:
 		/*
  		*	Insere um observador através de seu ponteiro.
  		*	@param observer	Ponteiro para um observador.

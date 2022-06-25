@@ -1,4 +1,4 @@
-#include "../include/AlphaFunction.hpp"
+#include "AlphaFunction.hpp"
 
 namespace ode{
 	/*

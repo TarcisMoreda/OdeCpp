@@ -1,12 +1,13 @@
 #pragma once
 
 #include "OdeModel.hpp"
-#include "Observer.hpp"
+#include "../Observer.hpp"
 
 namespace ode{
 	class IzhikevichModel: public OdeModel, public ObserverSubject{
 	private:
 		float a, b, c, d;
+		float prevU, prevV;
 
 	public:
 		IzhikevichModel(const float a, const float b, const float c, const float d);	
@@ -14,9 +15,13 @@ namespace ode{
 		std::vector<float> modelDiferentialEquation(const float input);
 		bool equals(const IzhikevichModel* other);
 		float getParams(const char param);
+		std::vector<float> getState();
+		void setState(std::vector<float> state);
 	};
 	
 	class SpikeObserver: public IObserver{
-		void notification(const float time) override;
+		float notification(const float time) override{
+			return time;
+		}
 	};
 }

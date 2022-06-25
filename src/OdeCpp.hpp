@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OdeModel.hpp"
+#include "./Functions/AlphaFunction.hpp"
 #include "AlphaFunction.hpp"
 #include "IzhikevichModel.hpp"
 #include "Observer.hpp"

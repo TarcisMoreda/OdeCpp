@@ -1,4 +1,4 @@
-#include "../include/IzhikevichModel.hpp"
+#include "IzhikevichModel.hpp"
 
 namespace ode{
 	/*
@@ -65,5 +65,19 @@ namespace ode{
 		default:
 			break;
 		}
+	}
+
+	std::vector<float> IzhikevichModel::getState(){
+		if(this->state[0]>=30){
+			this->state[0] = this->c;
+			this->state[1] += this->d;
+			this->notifyObservers(this->time);
+		}
+		return this->state;
+	}
+
+	void IzhikevichModel::setState(std::vector<float> state){
+		if(state[0]>=35) state[0] = 35;
+		this->state = state;
 	}
 }
