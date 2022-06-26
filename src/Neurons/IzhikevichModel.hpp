@@ -20,7 +20,24 @@ namespace ode{
 	};
 	
 	class SpikeObserver: public IObserver{
+		private:
+		bool spiked = false;
+
+		public:
+		float hasSpiked(){
+			if(this->spiked){
+				this->spiked = false;
+				return 1.0f;
+			}
+			return 0.0f;
+		}
+
+		void resetInternalState(){
+			this->spiked = false;
+		}
+
 		float notification(const float time) override{
+			this->spiked = true;
 			return time;
 		}
 	};
