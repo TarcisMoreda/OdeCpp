@@ -10,12 +10,14 @@ namespace ode{
 	class OdeSimulator{
 	protected:
 		std::shared_ptr<SolverType> solver;
-		std::unordered_map<const char, std::vector<OdeModel&>> models;
+		std::unordered_map<const char, std::vector<std::shared_ptr<OdeModel>> models;
 
-		void addModel(const char type, OdeModel& model){
-			if(this->models.count(type)==0)
-				this->models.insert({type, model});
-			this->models.at(type).insert(model);
+		void addModel(const char type, std::shared_ptr<OdeModel> model){
+			if(this->models.count(type)==0){
+				std::vector<std::shared_ptr<OdeModel>> tempVec;
+				this->models.insert({type, tempVec});
+			}
+			this->models.at(type).push_back(model);
 		}
 
 	public:

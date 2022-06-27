@@ -1,4 +1,4 @@
-#include "../include/OdeCpp.hpp"
+#include "../src/OdeCpp.hpp"
 #include <gtest/gtest.h>
 
 //Teste da função diferencial alfa
@@ -26,14 +26,10 @@ TEST(AlphaTest, Step){
 };
 
 //Testes da função diferencial do neurônio Izhikevich
-TEST(IzhikevichTest, DiferentialEquation1){
+TEST(IzhikevichTest, DiferentialEquation){
 	ode::IzhikevichModel func(0.02f, 0.2f, -65.0f, 8.0f);
 	std::vector<float> out = func.modelDiferentialEquation(4.0f);
 	EXPECT_FLOAT_EQ(out[0], -4.0f);
-};
-TEST(IzhikevichTest, DiferentialEquation2){
-	ode::IzhikevichModel func(0.02f, 0.2f, -65.0f, 8.0f);
-	std::vector<float> out = func.modelDiferentialEquation(4.0f);
 	EXPECT_FLOAT_EQ(out[1], -0.1f);
 };
 
