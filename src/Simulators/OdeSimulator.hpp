@@ -13,9 +13,11 @@ namespace ode{
 		std::unordered_map<const char, std::vector<OdeModel&>> models;
 
 		void addModel(const char type, OdeModel& model){
-			if(this->models.count(type)==0)
-				this->models.insert({type, model});
-			this->models.at(type).insert(model);
+			if(this->models.count(type)==0){
+				std::vector<OdeModel&> tempVec;
+				this->models.insert({type, tempVec});
+			}
+			this->models.at(type).push_back(model);
 		}
 
 	public:

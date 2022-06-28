@@ -30,6 +30,7 @@ TEST(IzhikevichTest, DiferentialEquation){
 	ode::IzhikevichModel func(0.02f, 0.2f, -65.0f, 8.0f);
 	std::vector<float> out = func.modelDiferentialEquation(4.0f);
 	EXPECT_FLOAT_EQ(out[0], -4.0f);
+	EXPECT_FLOAT_EQ(out[1], -0.1f);
 };
 
 int main(int argc, char **argv){

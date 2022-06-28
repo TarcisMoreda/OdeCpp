@@ -33,7 +33,7 @@ namespace ode{
 		int neuronSetStep(const float interval, const std::vector<int> inputs){
 			if(this->models.at('I').size()!=inputs.size() ||
 			   this->models.at('I').size()!=this->models.at('A').size())
-				return;
+				return -1;
 			
 			float response = 0.0f;
 			
