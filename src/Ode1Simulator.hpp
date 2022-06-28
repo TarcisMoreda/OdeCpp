@@ -2,8 +2,8 @@
 
 #include "OdeSimulator.hpp"
 #include "Ode1Solver.hpp"
-#include "../Neurons/IzhikevichModel.hpp"
-#include "../Neurons/AlphaFunction.hpp"
+#include "IzhikevichModel.hpp"
+#include "AlphaFunction.hpp"
 
 namespace ode{
 	class Ode1Simulator: public OdeSimulator<Ode1Solver>{

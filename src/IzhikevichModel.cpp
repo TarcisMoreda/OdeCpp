@@ -63,6 +63,7 @@ namespace ode{
 			break;
 
 		default:
+			return 0;
 			break;
 		}
 	}

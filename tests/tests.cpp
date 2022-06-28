@@ -1,4 +1,4 @@
-#include "../src/OdeCpp.hpp"
+#include <OdeCpp/OdeCpp.hpp>
 #include <gtest/gtest.h>
 
 //Teste da função diferencial alfa
@@ -23,6 +23,12 @@ TEST(AlphaTest, Step){
 		testOut[i] = func.getState()[0];
 		EXPECT_FLOAT_EQ(testOut[i], expectedOut[i]);
 	}
+};
+TEST(AlphaTest, AlphaGetParams){
+	ode::AlphaFunction func(1.0f, 10.0f, 3.0f);
+	float result = func.getParams('A');
+	float expected = -1.0f/10.0f;
+	EXPECT_FLOAT_EQ(result, expected);
 };
 
 //Testes da função diferencial do neurônio Izhikevich

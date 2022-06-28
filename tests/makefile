@@ -1,6 +1,6 @@
 CXX=g++
 FLAGS=-g -Wall -O2 -std=c++11 -fprofile-arcs -ftest-coverage
-LIBS=-lgtest_main  -lgtest -lpthread
+LIBS=-lgtest_main -lgtest -lpthread
 
 SRC=../src
 INC=../include

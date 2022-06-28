@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <memory>
 #include "OdeSolver.hpp"
-#include "../Neurons/OdeModel.hpp"
+#include "OdeModel.hpp"
 
 namespace ode{
 	template<typename SolverType>

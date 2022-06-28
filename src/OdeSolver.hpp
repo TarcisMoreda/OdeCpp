@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Neurons/OdeModel.hpp"
+#include "OdeModel.hpp"
 
 namespace ode{
 	template<int N>
