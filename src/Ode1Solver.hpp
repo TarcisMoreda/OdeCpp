@@ -1,20 +1,50 @@
 #pragma once
 
-#include "OdeSolver.hpp"
+#include "IzhikevichModel.hpp"
+#include "AlphaFunction.hpp"
 
 namespace ode{
-	class Ode1Solver: public OdeSolver<2>{
+	class Ode1Solver{
+	private:
+		SpikeObserver izhikevichObserver;
+
+		template<typename ModelType>
+		void internalStep(ModelType& model, const float interval, const float input){
+			std::vector<float> dy = model.modelDiferentialEquation(input);
+			std::vector<float> y = model.getState();
+			
+			for(size_t i=0; i<y.size(); ++i)
+				y[i] += interval*dy[i];
+
+			model.setState(y);
+			model.addTime(interval);
+		}
+
 	public:
-		void step(OdeModel& model, const float interval, const float input) override{
+		SpikeObserver& getSpike(){
+			return izhikevichObserver;
+		}
+
+		template<typename ModelType>
+		float step(ModelType& model, const float interval, const float input){
+			const char* typeName = typeid(ModelType).name();
 			std::vector<float> y = model.getState();
 
-			std::vector<float> dy = model.modelDiferentialEquation(input);
+			if(typeName == typeid(IzhikevichModel).name()){
+				if(y[0]>=30.0f){
+					y[0] = model.getParams('c');
+					y[1] += model.getParams('d');
+					model.notifyObservers();
+				}
 
-			for(int i=0; i<model.getNumEquations(); ++i)
-				y[i] += (interval*dy[i]);
-
-			model.addTime(interval);
-			model.setState(y);
+				this->internalStep<ModelType>(model, interval, input);
+				y = model.getState();
+				
+				if(y[0]>=35.0f)
+					y[0] = 35.0f
+			}
+			else
+				this->internalStep(model, interval, this->izhikevichObserver.hasSpiked());
 		}
 	};
 } // namespace ode

@@ -7,7 +7,6 @@ namespace ode{
 	class IzhikevichModel: public OdeModel, public ObserverSubject{
 	private:
 		float a, b, c, d;
-		float prevU, prevV;
 
 	public:
 		IzhikevichModel(const float a, const float b, const float c, const float d);
@@ -17,11 +16,20 @@ namespace ode{
 		float getParams(const char param);
 		std::vector<float> getState();
 		void setState(std::vector<float> state);
+
+		void notifyObservers() override{
+			for(IObserver& observer: this->observers)
+				observer.notification(this->time);
+		}
 	};
 	
 	class SpikeObserver: public IObserver{
 		private:
-		bool spiked = false;
+		int spiked = false;
+
+		void resetInternalState(){
+			this->spiked = false;
+		}
 
 		public:
 		float hasSpiked(){
@@ -32,13 +40,8 @@ namespace ode{
 			return 0.0f;
 		}
 
-		void resetInternalState(){
-			this->spiked = false;
-		}
-
-		float notification(const float time) override{
+		void notification(const float time) override{
 			this->spiked = true;
-			return time;
 		}
 	};
 }

@@ -2,45 +2,26 @@
 
 #include "OdeSimulator.hpp"
 #include "Ode1Solver.hpp"
-#include "IzhikevichModel.hpp"
-#include "AlphaFunction.hpp"
 
 namespace ode{
 	class Ode1Simulator: public OdeSimulator<Ode1Solver>{
-	private:
-		std::shared_ptr<SpikeObserver> internalObserver;
-
-		int neuronStep(const int index, const float interval, const int input){
-			OdeModel& izhikevich = this->models.at('I')[index];
-			this->solver->step(izhikevich, interval, input);
-			
-			OdeModel& alpha = this->models.at('A')[index];
-			this->solver->step(alpha, interval, internalObserver->hasSpiked());
-			
-			return alpha.getState()[0]; 
-		}
-
 	public:
-		void insertIzhikevich(IzhikevichModel model){
-			model.attachObserver(internalObserver);
-			this->addModel('I', model);
-		}
-
-		void insertAlpha(AlphaFunction model){
-			this->addModel('A', model);
-		}
-
-		int neuronSetStep(const float interval, const std::vector<int> inputs){
-			if(this->models.at('I').size()!=inputs.size() ||
-			   this->models.at('I').size()!=this->models.at('A').size())
-				return -1;
+		float neuronSetStep(const float interval, const std::vector<int> inputs) override{
+			std::shared_ptr<ModelArray<IzhikevichModel>> izhikevich = this->getModelArray<IzhikevichModel>();
+			std::shared_ptr<ModelArray<AlphaFunction>> alpha = this->getModelArray<AlphaFunction>();
 			
+			if(izhikevich->size()!=alpha->size() || izhikevich->size()!= inputs.size()) 
+				return 0.0f;
+
 			float response = 0.0f;
-			
-			for (size_t i=0; i<this->models.at('I').size(); ++i){
-				response+=this->neuronStep(i, interval, inputs[i]);
+
+			for(size_t i=0; i<izhikevich->size(); ++i){
+				solver.step<IzhikevichModel>(izhikevich->get(i), interval, inputs[i]);
+				solver.step<AlphaFunction>(alpha->get(i), interval, inputs[i]);
+
+				response += alpha->get(i).getState()[0];
 			}
-			
+
 			return response;
 		}
 	};

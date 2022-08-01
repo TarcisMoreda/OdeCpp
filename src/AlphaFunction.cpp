@@ -39,6 +39,18 @@ namespace ode{
 	}
 
 	float AlphaFunction::getParams(const char param){
-		return this->thau;
+		switch(param){
+		case 't':
+			return this->thau;
+			break;
+
+		case 'w':
+			return this->weight;
+			break;
+		
+		default:
+			return 0;
+			break;
+		}
 	}
 }

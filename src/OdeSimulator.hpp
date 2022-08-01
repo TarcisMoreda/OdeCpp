@@ -4,23 +4,34 @@
 #include <memory>
 #include "OdeSolver.hpp"
 #include "OdeModel.hpp"
+#include "Containers.hpp"
 
 namespace ode{
 	template<typename SolverType>
 	class OdeSimulator{
 	protected:
-		std::shared_ptr<SolverType> solver;
-		std::unordered_map<const char, std::vector<OdeModel&>> models;
+		SolverType solver;
+		std::unordered_map<const char*, std::shared_ptr<IModelArray>> models{};
 
-		void addModel(const char type, OdeModel& model){
-			if(this->models.count(type)==0){
-				std::vector<OdeModel&> tempVec;
-				this->models.insert({type, tempVec});
+		template<typename ModelType>
+		std::shared_ptr<ModelArray<ModelType>> getModelArray(){
+			const char* typeName = typeid(ModelType).name();
+			if(this->models.count(typeName)==0) return NULL;
+			return std::static_pointer_cast<ComponentArray<ModelType>>(this->models[typeName]);
+		}
+
+		template<typename ModelType>
+		void addModel(ModelType& model){
+			const char* typeName = typeid(ModelType).name();
+			if(this->models.count(typeName)==0){
+				std::vector<ModelType&> tempVec;
+				this->models.insert({typeName, std::make_shared<ModelArray<ModelType>>()});
 			}
-			this->models.at(type).push_back(model);
+			
+			getModelArray<ModelType>()->insert(model);
 		}
 
 	public:
-		virtual int neuronSetStep(const float interval, const std::vector<int> inputs) = 0;
+		virtual float neuronSetStep(const float interval, const std::vector<int> inputs) = 0;
 	};
 } // namespace ode
