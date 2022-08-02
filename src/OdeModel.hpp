@@ -17,23 +17,11 @@ namespace ode{
 		virtual std::vector<float> modelDiferentialEquation(const float input) = 0;
 		virtual float getParams(const char param) = 0;
 
-		void setState(const std::vector<float> state){
-			this->state = state;
-		}
-		std::vector<float> getState(){
-			return this->state;
-		}
-		void setTime(const float time){
-			this->time = time;
-		}
-		float getTime(){
-			return this->time;
-		}
-		void addTime(const float interval){
-			this->time += interval;
-		}
-		int getNumEquations(){
-			return this->numEquations;
-		}
+		void setState(const std::vector<float> state);
+		std::vector<float> getState();
+		void setTime(const float time);
+		float getTime();
+		void addTime(const float interval);
+		int getNumEquations();
 	};
 } // namespace ode

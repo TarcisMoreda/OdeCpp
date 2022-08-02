@@ -14,13 +14,7 @@ namespace ode{
 		std::vector<float> modelDiferentialEquation(const float input);
 		bool equals(const IzhikevichModel* other);
 		float getParams(const char param);
-		std::vector<float> getState();
-		void setState(std::vector<float> state);
-
-		void notifyObservers() override{
-			for(IObserver& observer: this->observers)
-				observer.notification(this->time);
-		}
+		void notifyObservers();
 	};
 	
 	class SpikeObserver: public IObserver{

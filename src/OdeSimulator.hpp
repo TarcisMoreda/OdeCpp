@@ -20,6 +20,9 @@ namespace ode{
 			return std::static_pointer_cast<ComponentArray<ModelType>>(this->models[typeName]);
 		}
 
+	public:
+		virtual float neuronSetStep(const float interval, const std::vector<int> inputs) = 0;
+		
 		template<typename ModelType>
 		void addModel(ModelType& model){
 			const char* typeName = typeid(ModelType).name();
@@ -30,8 +33,5 @@ namespace ode{
 			
 			getModelArray<ModelType>()->insert(model);
 		}
-
-	public:
-		virtual float neuronSetStep(const float interval, const std::vector<int> inputs) = 0;
 	};
 } // namespace ode
