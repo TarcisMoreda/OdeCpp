@@ -53,7 +53,7 @@ namespace ode{
 	}
 
 	void IzhikevichModel::notifyObservers(){
-		for(IObserver& observer: this->observers)
-			observer.notification(this->time);
+		for(auto observer: this->observers)
+			observer->notification(this->time);
 	}
 }

@@ -4,7 +4,7 @@
 #include "Observer.hpp"
 
 namespace ode{
-	class IzhikevichModel: public OdeModel, public ObserverSubject{
+	class IzhikevichModel: public OdeModel, public ObserverSubject<SpikeObserver>{
 	private:
 		float a, b, c, d;
 
@@ -15,27 +15,5 @@ namespace ode{
 		bool equals(const IzhikevichModel* other);
 		float getParams(const char param);
 		void notifyObservers();
-	};
-	
-	class SpikeObserver: public IObserver{
-		private:
-		int spiked = false;
-
-		void resetInternalState(){
-			this->spiked = false;
-		}
-
-		public:
-		float hasSpiked(){
-			if(this->spiked){
-				this->spiked = false;
-				return 1.0f;
-			}
-			return 0.0f;
-		}
-
-		void notification(const float time) override{
-			this->spiked = true;
-		}
 	};
 }

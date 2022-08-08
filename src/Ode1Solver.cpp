@@ -6,7 +6,7 @@ namespace ode{
 		std::vector<float> dy = model.modelDiferentialEquation(input);
 		std::vector<float> y = model.getState();
 			
-		for(size_t i=0; i<y.size(); ++i)
+		for(int i=0; i<y.size(); ++i)
 			y[i] += interval*dy[i];
 
 		model.setState(y);

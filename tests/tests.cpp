@@ -1,6 +1,5 @@
-#include <OdeCpp/OdeCpp.hpp>
-//Trocar gtest por http://www.throwtheswitch.org/tools
-#include <gtest/gtest.h>
+#include <>
+#include "doctest.h"
 
 //Teste da função diferencial alfa
 TEST(AlphaTest, DiferentialEquation){
@@ -19,7 +18,7 @@ TEST(AlphaTest, Step){
 						   2.9565938f, 2.66093442f, 2.394840978f, 2.15535688f};
 	float testOut[NUM_ELEMENTS];
 
-	for(size_t i=0; i<NUM_ELEMENTS; ++i){
+	for(int i=0; i<NUM_ELEMENTS; ++i){
 		solver.step(func, 1, inputs[i]);
 		testOut[i] = func.getState()[0];
 		EXPECT_FLOAT_EQ(testOut[i], expectedOut[i]);
