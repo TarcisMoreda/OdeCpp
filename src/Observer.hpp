@@ -38,10 +38,9 @@ namespace ode{
 		}
 	};
 
-	template<typename ObserverType>
 	class ObserverSubject{
 	protected:
-		std::list<ObserverType*> observers;
+		std::list<IObserver*> observers;
 
 	public:
 		/*
@@ -54,7 +53,7 @@ namespace ode{
  		*	Insere um observador através de seu ponteiro.
  		*	@param observer	Ponteiro para um observador.
  		*/
-		void attachObserver(ObserverType* observer){
+		void attachObserver(IObserver* observer){
 			this->observers.push_back(observer);
 		}
 
@@ -62,11 +61,18 @@ namespace ode{
  		*	Remove um observador através de seu ponteiro.
  		*	@param observer	Ponteiro para um observador.
  		*/
-		void detachObserver(ObserverType* observer){
+		void detachObserver(IObserver* observer){
 			auto iterator = std::find(this->observers.begin(), this->observers.end(), observer);
 
 			if(iterator != this->observers.end())
 				observers.erase(iterator);
+		}
+
+		bool hasObserver(IObserver* observer){
+			for(auto internalObserver: this->observers)
+				if(internalObserver==observer)
+					return true;
+			return false;
 		}
 	};
 } // namespace ode

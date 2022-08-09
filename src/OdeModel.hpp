@@ -1,9 +1,10 @@
 #pragma once
 
 #include <vector>
+#include "Observer.hpp"
 
 namespace ode{
-	class OdeModel{
+	class OdeModel: public ObserverSubject{
 	protected:
 		int numEquations;
 		std::vector<float> state;

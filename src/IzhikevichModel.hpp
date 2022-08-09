@@ -1,10 +1,9 @@
 #pragma once
 
 #include "OdeModel.hpp"
-#include "Observer.hpp"
 
 namespace ode{
-	class IzhikevichModel: public OdeModel, public ObserverSubject<SpikeObserver>{
+	class IzhikevichModel: public OdeModel{
 	private:
 		float a, b, c, d;
 
