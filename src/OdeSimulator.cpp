@@ -8,7 +8,7 @@ namespace ode{
 		for(int i=0; i<this->models[0].size(); ++i){
 			solver.step(models[0][i], interval, inputs[i]);
 			solver.step(models[1][i], interval, inputs[i]);
-			result += models[1][i].getState[0];
+			result += models[1][i].getState()[0];
 		}
 
 		return result;
@@ -16,8 +16,8 @@ namespace ode{
 
 	template<typename SolverType>
 	void OdeSimulator<SolverType>::addModel(OdeModel& model, const int identifier){
-		if(!this->models.find(identifier)){
-			std::vector<OdeModel&> tempVec{};
+		if(this->models.find(identifier)==(++this->models.end())){
+			std::vector<OdeModel> tempVec{};
 			this->models.insert({identifier, tempVec});
 		}
 

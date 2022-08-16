@@ -10,7 +10,7 @@ namespace ode{
 	class OdeSimulator{
 	protected:
 		SolverType solver;
-		std::unordered_map<const int, std::vector<OdeModel&>> models;
+		std::unordered_map<const int, std::vector<OdeModel>> models;
 
 	public:
 		float neuronSetStep(const float interval, const std::vector<int> inputs);
