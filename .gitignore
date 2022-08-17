@@ -4,7 +4,6 @@ build/libOdeCpp.a
 build/obj_dyn
 build/obj_stt
 tests/report
-tests/obj
-tests/tests.gcda
-tests/tests.gcno
+tests/coverage
+tests/tests.bin
 docs/OdeCpp.jpg.bak

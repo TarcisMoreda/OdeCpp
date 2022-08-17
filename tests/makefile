@@ -1,45 +1,35 @@
 CXX=g++
 FLAGS=-g -Wall -O2 -std=c++11 -fprofile-arcs -ftest-coverage
-LIBS=-lgtest_main -lgtest -lpthread
+LIBS=-lgtest_main -lgtest -lpthread -lOdeCpp
 
 SRC=../src
-INC=../include
-OBJ=obj
 SRCS=$(wildcard $(SRC)/*.cpp)
-OBJS=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
-HDRS=$(wildcard $(INC)/*.hpp)
-DIR=report
-INFO=$(DIR)/html/coverage.info
+SRCS+=./tests.cpp
+HDRS=$(wildcard $(SRC)/*.hpp)
 BIN=tests.bin
 
-report: tests
-	@echo "Generating gcov"
-	@gcov -l tests.cpp
-	@mkdir -p $(DIR)/gcov
-	@mv *.gcda *.gcno $(DIR)/gcov
-	@mv obj/*.gcda obj/*.gcno $(DIR)/gcov
-	@mv *.gcov $(DIR)/gcov
-	@echo "Generating html"
-	@mkdir -p $(DIR)/html
-	@lcov --capture --directory . --output-file $(INFO)
-	@lcov --remove $(INFO) '/usr/include/*' '9/*' --directory . --output-file $(INFO)
-	@genhtml $(INFO) --output-directory $(DIR)/html
+tests:
+	@echo "Building tests..."
+	@$(CXX) $(SRCS) $(FLAGS) -o $(BIN) $(LIBS)
+	@mkdir -p coverage
+	@mv ./*.*.gcno ./coverage
+	@echo "Build completed."
 
-tests: $(BIN)
+run: tests
 	@echo "Running tests..."
-	@./$(DIR)/$(BIN)
+	@./tests.bin
+	@mv ./*.*.gcda ./coverage
+	@echo "Tests completed."
 
-$(BIN): $(OBJS) $(OBJ)
-	@mkdir -p $(DIR)
-	$(CXX) $(FLAGS) ./tests.cpp $(OBJS) -o $(DIR)/$(BIN) $(LIBS)
-
-$(OBJ)/%.o: $(SRC)/%.cpp $(OBJ)
-	$(CXX) $(FLAGS) -c $< -o $@ $(LIBS)
-
-$(OBJ):
-	@mkdir -p $@
+coverage: run
+	@echo "Creating coverage report..."
+	@lcov --capture --directory ./coverage --base-directory . -o coverage.out &&\
+	lcov --remove coverage.out "*usr/include*" -o coverage.out &&\
+	genhtml -o report coverage.out
+	@mv coverage.out ./coverage
 
 clean:
-	$(RM) -r $(OBJ)
-	$(RM) -r $(DIR)
-	$(RM) tests.gcda tests.gcno
+	@echo "Cleaning files..."
+	@$(RM) -r $(BIN)
+	@$(RM) -r ./coverage
+	@$(RM) -r ./report

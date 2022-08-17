@@ -36,4 +36,8 @@ namespace ode{
 			break;
 		}
 	}
+
+	void AlphaFunction::notifyObservers(){
+		return;
+	}
 }

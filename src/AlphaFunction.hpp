@@ -14,5 +14,6 @@ namespace ode{
 		std::vector<float> modelDiferentialEquation(const float input);
 		bool equals(const AlphaFunction* other);
 		float getParams(const char param);
+		void notifyObservers() override;
 	};
 } // namespace ode

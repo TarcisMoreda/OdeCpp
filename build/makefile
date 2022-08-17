@@ -25,14 +25,15 @@ install: dynamic
 	@cp -r $(HDRS) $(DESTDIR)/include/$(PREFIX)/
 	@echo "Moving dynamic library to $(DESTDIR)/lib/"
 	@cp $(LIB_DYN) $(DESTDIR)/lib/
+	@echo "Installation complete."
 
 dynamic: $(LIB_DYN)
 
 $(LIB_DYN): $(OBJS_DYN) $(OBJ_DYN)
-	$(CC) $(OBJS_DYN) $(FLAGS) -fPIC -shared -o $(LIB_DYN)
+	@$(CC) $(OBJS_DYN) $(FLAGS) -fPIC -shared -o $(LIB_DYN)
 
 $(OBJ_DYN)/%.o: $(SRC)/%.cpp $(OBJ_DYN)
-	$(CC) $(FLAGS) -fPIC -c $< -o $@
+	@$(CC) $(FLAGS) -fPIC -c $< -o $@
 
 $(OBJ_DYN):
 	@mkdir -p $@
@@ -43,13 +44,16 @@ $(LIB_STT): $(OBJS_STT) $(OBJ_STT)
 	@echo "Creating static library..."
 	@echo "Linking static library..."
 	@ar rcs $(LIB_STT) $(OBJS_STT)
+	@echo "Static library created."
 
 $(OBJ_STT)/%.o: $(SRC)/%.cpp $(OBJ_STT)
-	$(CC) $(FLAGS) -fPIC -c $< -o $@
+	@$(CC) $(FLAGS) -fPIC -c $< -o $@
 
 $(OBJ_STT):
 	@mkdir -p $@
 
 clean:
+	@echo "Cleaning files..."
 	$(RM) -r $(OBJ_DYN) $(OBJ_STT)
 	$(RM) $(LIB_DYN) $(LIB_STT)
+	@echo "Files cleaned."
