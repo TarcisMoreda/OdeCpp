@@ -64,7 +64,7 @@ namespace ode{
 		void detachObserver(IObserver* observer){
 			auto iterator = std::find(this->observers.begin(), this->observers.end(), observer);
 
-			if(iterator != this->observers.end())
+			if(iterator!=this->observers.end())
 				observers.erase(iterator);
 		}
 
@@ -72,6 +72,7 @@ namespace ode{
 			for(auto internalObserver: this->observers)
 				if(internalObserver==observer)
 					return true;
+
 			return false;
 		}
 	};

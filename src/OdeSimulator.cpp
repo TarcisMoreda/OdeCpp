@@ -1,26 +1,29 @@
+#include <iostream>
 #include "OdeSimulator.hpp"
 
 namespace ode{
-	template<typename SolverType>
-	float OdeSimulator<SolverType>::neuronSetStep(const float interval, const std::vector<int> inputs){
+	OdeSimulator::OdeSimulator(Ode1Solver* solver){
+		this->solver = solver;
+	}
+
+	float OdeSimulator::neuronSetStep(const float interval, const std::vector<float> inputs){
 		float result = 0.0f;
-		
-		for(int i=0; i<this->models[0].size(); ++i){
-			solver.step(models[0][i], interval, inputs[i]);
-			solver.step(models[1][i], interval, inputs[i]);
-			result += models[1][i].getState()[0];
+
+		for(size_t i=0; i<this->izhikevich.size(); ++i){
+			solver->step(this->izhikevich[i], interval, inputs[i], 0);
+			solver->step(this->alpha[i], interval, inputs[i], 1);
+			result += this->alpha[i].getState()[0];
 		}
 
 		return result;
 	}
 
-	template<typename SolverType>
-	void OdeSimulator<SolverType>::addModel(OdeModel& model, const int identifier){
-		if(this->models.find(identifier)==(++this->models.end())){
-			std::vector<OdeModel> tempVec{};
-			this->models.insert({identifier, tempVec});
-		}
+	void OdeSimulator::addIzhikevich(const float a, const float b, const float c, const float d){
+		this->izhikevich.push_back(IzhikevichModel(a, b, c, d));
+		this->solver->setup(&(this->izhikevich.back()));
+	}
 
-		this->models.at(identifier).push_back(model);
+	void OdeSimulator::addAlpha(const float state, const float thau, const float weight){
+		this->alpha.push_back(AlphaFunction(state, thau, weight));
 	}
 } // namespace ode

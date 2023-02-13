@@ -52,6 +52,11 @@ $(OBJ_STT)/%.o: $(SRC)/%.cpp $(OBJ_STT)
 $(OBJ_STT):
 	@mkdir -p $@
 
+uninstall:
+	@echo "Uninstalling dynamic library..."
+	@rm -r $(DESTDIR)/include/$(PREFIX)
+	@rm -r $(DESTDIR)/lib/$(LIB_DYN)
+
 clean:
 	@echo "Cleaning files..."
 	$(RM) -r $(OBJ_DYN) $(OBJ_STT)

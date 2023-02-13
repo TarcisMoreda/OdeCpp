@@ -1,6 +1,6 @@
 CXX=g++
 FLAGS=-g -Wall -O2 -std=c++11 -fprofile-arcs -ftest-coverage
-LIBS=-lgtest_main -lgtest -lpthread -lOdeCpp
+LIBS=-lgtest_main -lgtest -lpthread
 
 SRC=../src
 SRCS=$(wildcard $(SRC)/*.cpp)
@@ -30,6 +30,6 @@ coverage: run
 
 clean:
 	@echo "Cleaning files..."
-	@$(RM) -r $(BIN)
-	@$(RM) -r ./coverage
-	@$(RM) -r ./report
+	@rm -r $(BIN)
+	@rm -r ./coverage
+	@rm -r ./report

@@ -1,19 +1,22 @@
 #pragma once
 
-#include <unordered_map>
+#include <vector>
 #include <memory>
-#include "OdeSolver.hpp"
-#include "OdeModel.hpp"
+#include "Ode1Solver.hpp"
+#include "IzhikevichModel.hpp"
+#include "AlphaFunction.hpp"
 
 namespace ode{
-	template<typename SolverType>
 	class OdeSimulator{
-	protected:
-		SolverType solver;
-		std::unordered_map<const int, std::vector<OdeModel>> models;
+	private:
+		Ode1Solver* solver;
+		std::vector<IzhikevichModel> izhikevich;
+		std::vector<AlphaFunction> alpha;
 
 	public:
-		float neuronSetStep(const float interval, const std::vector<int> inputs);
-		void addModel(OdeModel& model, const int identifier);
+		OdeSimulator(Ode1Solver* solver);
+		float neuronSetStep(const float interval, const std::vector<float> inputs);
+		void addIzhikevich(const float a, const float b, const float c, const float d);
+		void addAlpha(const float state, const float thau, const float weight);
 	};
 } // namespace ode

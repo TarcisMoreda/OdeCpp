@@ -11,7 +11,7 @@ namespace ode{
 	public:
 		AlphaFunction(const float state, const float thau, const float weight);
 
-		std::vector<float> modelDiferentialEquation(const float input);
+		std::vector<float> modelDiferentialEquation(const float input) override;
 		bool equals(const AlphaFunction* other);
 		float getParams(const char param);
 		void notifyObservers() override;

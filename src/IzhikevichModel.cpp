@@ -1,7 +1,11 @@
 #include "IzhikevichModel.hpp"
+#include <iostream>
 
 namespace ode{
-	IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, const float d): OdeModel::OdeModel(1){
+	IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, const float d){
+		this->numEquations = 2;
+		this->name = 'i';
+		
 		this->state.push_back(c);
 		this->state.push_back(-d);
 	

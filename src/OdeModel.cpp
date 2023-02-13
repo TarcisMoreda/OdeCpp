@@ -24,4 +24,8 @@ namespace ode{
 	int OdeModel::getNumEquations(){
 		return this->numEquations;
 	}
+
+	char OdeModel::getName(){
+		return this->name;
+	}
 } // namespace ode

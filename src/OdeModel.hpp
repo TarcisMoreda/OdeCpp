@@ -6,15 +6,12 @@
 namespace ode{
 	class OdeModel: public ObserverSubject{
 	protected:
+		char name;
 		int numEquations;
 		std::vector<float> state;
 		float time = 0.0f;
 	
 	public:
-		OdeModel(int numEquations){
-			this->numEquations = numEquations;
-		}
-
 		virtual std::vector<float> modelDiferentialEquation(const float input) = 0;
 		virtual float getParams(const char param) = 0;
 
@@ -24,5 +21,6 @@ namespace ode{
 		float getTime();
 		void addTime(const float interval);
 		int getNumEquations();
+		char getName();
 	};
 } // namespace ode

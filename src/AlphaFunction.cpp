@@ -1,7 +1,9 @@
 #include "AlphaFunction.hpp"
 
 namespace ode{
-	AlphaFunction::AlphaFunction(const float state, const float thau, const float weight): OdeModel::OdeModel(1){
+	AlphaFunction::AlphaFunction(const float state, const float thau, const float weight){
+		this->numEquations = 1;
+		this->name = 'a';
 		this->state.push_back(state);
 		this->thau = (-1.0f/thau);
 		this->weight = weight;
@@ -9,7 +11,7 @@ namespace ode{
 
 	std::vector<float> AlphaFunction::modelDiferentialEquation(const float input){
 		std::vector<float> newState = this->state;
-		newState[0] = this->thau*this->state[0]+(input*this->weight);
+		newState[0] = (this->thau*newState[0])+(input*this->weight);
 		return newState;
 	}
 
