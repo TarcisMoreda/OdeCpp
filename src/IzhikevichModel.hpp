@@ -12,7 +12,7 @@ namespace ode{
 
 		std::vector<float> modelDiferentialEquation(const float input) override;
 		bool equals(const IzhikevichModel* other);
-		float getParams(const char param);
-		void notifyObservers();
+		float getParams(const char param) override;
+		void notifyObservers() override;
 	};
 }
