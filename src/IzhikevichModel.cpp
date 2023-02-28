@@ -3,51 +3,46 @@
 
 namespace ode{
 	IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, const float d){
-		this->numEquations = 2;
-		this->name = 'i';
+		this->mName = 'i';
 		
-		this->state.push_back(c);
-		this->state.push_back(-d);
+		this->mState.push_back(c);
+		this->mState.push_back(-d);
 	
-		this->a = a;
-		this->b = b;
-		this->c = c;
-		this->d = d;
+		this->mA = a;
+		this->mB = b;
+		this->mC = c;
+		this->mD = d;
 	}
 
-	std::vector<float> IzhikevichModel::modelDiferentialEquation(const float input){
-		std::vector<float> newState = this->state;
+	std::vector<float> IzhikevichModel::ModelDiferentialEquation(const float input){
+		std::vector<float> newState = this->mState;
 	
-		newState[0] = 0.04f*(this->state[0]*this->state[0])+5.0f*this->state[0]+140.0f-this->state[1]+input;
-		newState[1] = this->a*(this->b*this->state[0]-this->state[1]);
+		newState[0] = 0.04f*(this->mState[0]*this->mState[0])+5.0f*this->mState[0]+140.0f-this->mState[1]+input;
+		newState[1] = this->mA*(this->mB*this->mState[0]-this->mState[1]);
 	
 		return newState;
 	}
-
-	bool IzhikevichModel::equals(const IzhikevichModel* other){
-		if(this==other || (this->numEquations==other->numEquations && this->state==other->state && 
-		this->time==other->time && this->a==other->a && this->b==other->b && this->c==other->c && this->d==other->d))
-			return true;
 	
-		return false;
-	}
-	
-	float IzhikevichModel::getParams(const char param){
+	const float IzhikevichModel::getParams(const char param){
 		switch (param){
 		case 'a':
-			return this->a;
+		case 'A':
+			return this->mA;
 			break;
 		
 		case 'b':
-			return this->b;
+		case 'B':
+			return this->mB;
 			break;
 
 		case 'c':
-			return this->c;
+		case 'C':
+			return this->mC;
 			break;
 
 		case 'd':
-			return this->d;
+		case 'D':
+			return this->mD;
 			break;
 
 		default:
@@ -56,8 +51,16 @@ namespace ode{
 		}
 	}
 
-	void IzhikevichModel::notifyObservers(){
-		for(auto observer: this->observers)
-			observer->notification(this->time);
+	void IzhikevichModel::NotifyObservers(){
+		for(auto observer: this->mObserversList)
+			observer->Notification(this->mTime);
+	}
+
+	bool IzhikevichModel::operator==(const IzhikevichModel& other){
+		if(this->mState==other.mState && this->mA==other.mA && this->mB==other.mB && this->mC==other.mC 
+		&& this->mD==other.mD && this->mName==other.mName && this->mTime==other.mTime)
+		 	return true;
+		
+		return false;
 	}
 }

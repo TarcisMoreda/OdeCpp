@@ -1,19 +1,20 @@
 #pragma once
 
-#include "OdeModel.hpp"
+#include "BaseModel.hpp"
 
 namespace ode{
-	class AlphaFunction: public OdeModel{
-	private:
-		float thau;
-		float weight;
+	class AlphaFunction: public BaseModel{
+		private:
+		float mThau;
+		float mWeight;
 
-	public:
+		public:
 		AlphaFunction(const float state, const float thau, const float weight);
 
-		std::vector<float> modelDiferentialEquation(const float input) override;
-		bool equals(const AlphaFunction* other);
-		float getParams(const char param) override;
-		void notifyObservers() override;
+		std::vector<float> ModelDiferentialEquation(const float input) override;
+		const float getParams(const char param) override;
+		void NotifyObservers() override;
+
+		bool operator==(const AlphaFunction& other);
 	};
 } // namespace ode

@@ -2,44 +2,45 @@
 
 namespace ode{
 	AlphaFunction::AlphaFunction(const float state, const float thau, const float weight){
-		this->numEquations = 1;
-		this->name = 'a';
-		this->state.push_back(state);
-		this->thau = (-1.0f/thau);
-		this->weight = weight;
+		this->mName = 'a';
+		this->mState.push_back(state);
+		this->mThau = (-1.0f/thau);
+		this->mWeight = weight;
 	}
 
-	std::vector<float> AlphaFunction::modelDiferentialEquation(const float input){
-		std::vector<float> newState = this->state;
-		newState[0] = (this->thau*newState[0])+(input*this->weight);
+	std::vector<float> AlphaFunction::ModelDiferentialEquation(const float input){
+		std::vector<float> newState = this->mState;
+		newState[0] = (this->mThau*newState[0])+(input*this->mWeight);
 		return newState;
 	}
 
-	bool AlphaFunction::equals(const AlphaFunction* other){
-		if(this==other || (this->numEquations==other->numEquations && this->state==other->state && 
-		this->thau==other->thau && this->time==other->time && this->weight==other->weight))
-			return true;
-
-		return false;
-	}
-
-	float AlphaFunction::getParams(const char param){
+	const float AlphaFunction::getParams(const char param){
 		switch(param){
 		case 't':
-			return this->thau;
+		case 'T':
+			return this->mThau;
 			break;
 
 		case 'w':
-			return this->weight;
+		case 'W':
+			return this->mWeight;
 			break;
 		
 		default:
-			return 0;
+			return 0.0f;
 			break;
 		}
 	}
 
-	void AlphaFunction::notifyObservers(){
+	void AlphaFunction::NotifyObservers(){
 		return;
+	}
+
+	bool AlphaFunction::operator== (const AlphaFunction& other){
+		if(this->mState==other.mState && this->mThau==other.mThau && this->mWeight==other.mWeight 
+		&& this->mName==other.mName && this->mTime==other.mTime)
+			return true;
+
+		return false;
 	}
 }

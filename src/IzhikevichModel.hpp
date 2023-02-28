@@ -1,18 +1,19 @@
 #pragma once
 
-#include "OdeModel.hpp"
+#include "BaseModel.hpp"
 
 namespace ode{
-	class IzhikevichModel: public OdeModel{
-	private:
-		float a, b, c, d;
+	class IzhikevichModel: public BaseModel{
+		private:
+		float mA, mB, mC, mD;
 
-	public:
+		public:
 		IzhikevichModel(const float a, const float b, const float c, const float d);
 
-		std::vector<float> modelDiferentialEquation(const float input) override;
-		bool equals(const IzhikevichModel* other);
-		float getParams(const char param) override;
-		void notifyObservers() override;
+		std::vector<float> ModelDiferentialEquation(const float input) override;
+		const float getParams(const char param) override;
+		void NotifyObservers() override;
+
+		bool operator==(const IzhikevichModel& other);
 	};
 }

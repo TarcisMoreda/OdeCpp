@@ -6,70 +6,70 @@
 
 namespace ode{
 	class IObserver{
-	public:
+		protected:
+		float mTime = 0.0f;
+
+		public:
 		~IObserver() = default;
 
 		/*
  		*	Função que é executada ao notificar os observadores.
  		*	@param observer	Ponteiro para um observador.
  		*/
-		virtual void notification(const float time) = 0;
+		virtual void Notification(const float time) = 0;
 	};
 
 	class SpikeObserver: public IObserver{
 		private:
-		int spiked = false;
-
-		void resetInternalState(){
-			this->spiked = false;
-		}
+		int mSpiked = false;
 
 		public:
-		float hasSpiked(){
-			if(this->spiked){
-				this->spiked = false;
+		float HasSpiked(){
+			if(this->mSpiked){
+				this->mSpiked = false;
 				return 1.0f;
 			}
 			return 0.0f;
 		}
 
-		void notification(const float time) override{
-			this->spiked = true;
+		void Notification(const float time) override{
+			this->mTime = time;
+			this->mSpiked = true;
 		}
 	};
 
 	class ObserverSubject{
 	protected:
-		std::list<IObserver*> observers;
+		std::list<IObserver*> mObserversList;
 
 	public:
 		/*
  		 *	Notifica os observadores do acontecimento de um evento.
  		 *	@param time	Tempo do acontecimento.
  		 */
-		virtual void notifyObservers() = 0;
+		virtual void NotifyObservers() = 0;
 
 		/*
  		*	Insere um observador através de seu ponteiro.
  		*	@param observer	Ponteiro para um observador.
  		*/
-		void attachObserver(IObserver* observer){
-			this->observers.push_back(observer);
+		void AttachObserver(IObserver* observer){
+			this->mObserversList.push_back(observer);
 		}
 
 		/*
  		*	Remove um observador através de seu ponteiro.
  		*	@param observer	Ponteiro para um observador.
  		*/
-		void detachObserver(IObserver* observer){
-			auto iterator = std::find(this->observers.begin(), this->observers.end(), observer);
+		void DetachObserver(IObserver* observer){
+			auto iterator = std::find(this->mObserversList.begin(), this->mObserversList.end(), observer);
 
-			if(iterator!=this->observers.end())
-				observers.erase(iterator);
+			if(iterator!=this->mObserversList.end())
+				mObserversList.erase(iterator);
 		}
 
-		bool hasObserver(IObserver* observer){
-			for(auto internalObserver: this->observers)
+		bool HasObserver(IObserver* observer){
+			for(auto internalObserver: this->mObserversList)
 				if(internalObserver==observer)
 					return true;
 
