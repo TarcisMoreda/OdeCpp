@@ -2,7 +2,6 @@
 
 #include <list>
 #include <algorithm>
-#include <memory>
 
 namespace ode{
 	class IObserver{

@@ -5,5 +5,8 @@ build/obj_dyn
 build/obj_stt
 tests/report
 tests/coverage
+tests/*.gcda
+tests/*.gcno
+tests/*.out
 tests/tests.bin
 docs/OdeCpp.jpg.bak

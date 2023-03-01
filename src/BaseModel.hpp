@@ -12,6 +12,7 @@ namespace ode{
 		float mTime = 0.0f;
 	
 	public:
+		virtual ~BaseModel(){};
 		virtual std::vector<float> ModelDiferentialEquation(const float input) = 0;
 		virtual const float getParams(const char param) = 0;
 

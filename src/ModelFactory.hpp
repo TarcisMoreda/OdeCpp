@@ -3,13 +3,9 @@
 #include "BaseModel.hpp"
 #include "IzhikevichModel.hpp"
 #include "AlphaFunction.hpp"
+#include "Constants.hpp"
 
 namespace ode{
-    enum ModelType{
-        IZHIKEVICH,
-        ALPHA
-    };
-
     class ModelFactory{
         public:
         BaseModel* CreateNewModel(ModelType type, const float params[]){

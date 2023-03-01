@@ -10,6 +10,7 @@ namespace ode{
 	float OdeSimulator::NeuronSetStep(const float interval, const std::vector<float> inputs){
 		float result = 0.0f;
 
+		//precisa de loop para as entradas antes do loop para os modelos
 		for(size_t i=0; i<this->mModel.size(); ++i){
 			float spike = this->mObserver.HasSpiked();
 			solver->Step(this->mModel[i], interval, inputs[i], spike);
