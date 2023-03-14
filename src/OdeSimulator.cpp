@@ -1,4 +1,3 @@
-#include <iostream>
 #include "BaseSolver.hpp"
 #include "OdeSimulator.hpp"
 
@@ -12,9 +11,8 @@ namespace ode{
 
 		//precisa de loop para as entradas antes do loop para os modelos
 		for(size_t i=0; i<this->mModel.size(); ++i){
-			float spike = this->mObserver.HasSpiked();
-			solver->Step(this->mModel[i], interval, inputs[i], spike);
-			solver->Step(this->mFunction[i], interval, inputs[i], spike);
+			solver->Step(this->mModel[i], interval, inputs[i]);
+			solver->Step(this->mFunction[i], interval, this->mObserver.HasSpiked());
 			result += this->mFunction[i]->getState()[0];
 		}
 

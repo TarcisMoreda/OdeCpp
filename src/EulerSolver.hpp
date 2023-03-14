@@ -9,6 +9,6 @@ namespace ode{
 		void InternalStep(BaseModel* model, const float interval, const float input);
 
 	public:
-		void Step(BaseModel* model, const float interval, const float input, const float spike) override;
+		void Step(BaseModel* model, const float interval, const float input) override;
 	};
 } // namespace ode

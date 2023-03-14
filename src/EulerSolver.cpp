@@ -12,7 +12,7 @@ namespace ode{
 		model->addTime(interval);
 	}
 
-	void EulerSolver::Step(BaseModel* model, const float interval, const float input, const float spike){
+	void EulerSolver::Step(BaseModel* model, const float interval, const float input){
 		std::vector<float> y = model->getState();
 		if(model->getName()=='i'){
 			if(y[0]>=30.0f){
@@ -30,8 +30,7 @@ namespace ode{
 				model->setState(y);
 			}
 		}
-		else{
-			this->InternalStep(model, 0.001f, spike);
-		}
+		else
+			this->InternalStep(model, interval, input);
 	}
 } // namespace ode

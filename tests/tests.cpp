@@ -131,11 +131,10 @@ TEST(SolverTest, EulerSolver){
 	};
 
 	ode::IzhikevichModel* izhikevich = (ode::IzhikevichModel*) factory.CreateNewModel(ode::IZHIKEVICH, izhikevichParams);
-	izhikevich->AttachObserver(&observer);
 	ode::AlphaFunction* alpha = (ode::AlphaFunction*) factory.CreateNewModel(ode::ALPHA, alphaParams);
 
-	solver.Step(izhikevich, 0.001f, 1.0f, 0.0f);
-	solver.Step(alpha, 0.001f, 0.0f, observer.HasSpiked());
+	solver.Step(izhikevich, 0.001f, 1.0f);
+	solver.Step(alpha, 0.001f, 0.0f);
 
 	EXPECT_FLOAT_EQ(alpha->getState()[0], 0.001f);
 };

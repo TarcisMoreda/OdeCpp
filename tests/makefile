@@ -30,6 +30,6 @@ coverage: run
 
 clean:
 	@echo "Cleaning files..."
-	@rm -r $(BIN)
-	@rm -r ./coverage
-	@rm -r ./report
+	@rm -rf $(BIN)
+	@rm -rf ./coverage
+	@rm -rf ./report
