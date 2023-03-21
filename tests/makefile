@@ -33,3 +33,4 @@ clean:
 	@rm -rf $(BIN)
 	@rm -rf ./coverage
 	@rm -rf ./report
+	@rm -rf *.gcda

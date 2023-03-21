@@ -89,14 +89,12 @@ Já uma biblioteca estática é inserida dentro do binário do programa, fazendo
 
 ## Testes
 ### Créditos
-A biblioteca acutest.hpp está incluída de acordo com o Copyright escrito na mesma, créditos ao autor:
-
-https://github.com/mity/acutest
+A biblioteca de testes utilizada é a GoogleTest juntamente com lcov pra gerar coverage reports. 
 
 ### Utilização
 Compile o teste:
 ```
 cd OdeCpp/tests
-make
+make tests OU make coverage
 ./tests.bin
 ```

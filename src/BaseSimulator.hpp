@@ -2,21 +2,18 @@
 
 #include "BaseModel.hpp"
 #include "BaseSolver.hpp"
-#include "IzhikevichModel.hpp"
-#include "AlphaFunction.hpp"
 #include "Observer.hpp"
 
 namespace ode{
-	class OdeSimulator{
+	class BaseSimulator{
 	private:
-		BaseSolver* solver;
 		BaseSolver* solver;
 		std::vector<BaseModel*> mModel;
 		std::vector<BaseModel*> mFunction;
 		SpikeObserver mObserver;
 
 	public:
-		~OdeSimulator(){
+		~BaseSimulator(){
 			delete this->solver;
 			for(BaseModel* model: this->mModel)
 				delete model;
@@ -24,8 +21,8 @@ namespace ode{
 				delete model;
 		}
 		
-		OdeSimulator(BaseSolver* solver);
-		float NeuronSetStep(const float interval, const std::vector<float> inputs);
-		void InsertModel(BaseModel* model);
+		BaseSimulator(BaseSolver* solver);
+		virtual float NeuronSetStep(const float interval, const std::vector<float> inputs) = 0;
+		virtual void InsertModel(BaseModel* model) = 0;
 	};
 } // namespace ode
