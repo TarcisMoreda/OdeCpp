@@ -10,3 +10,4 @@ tests/*.gcno
 tests/*.out
 tests/tests.bin
 docs/OdeCpp.jpg.bak
+doxygen
