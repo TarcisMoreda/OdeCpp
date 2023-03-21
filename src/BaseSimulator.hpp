@@ -13,14 +13,7 @@ namespace ode{
 		SpikeObserver mObserver;
 
 	public:
-		~BaseSimulator(){
-			delete this->solver;
-			for(BaseModel* model: this->mModel)
-				delete model;
-			for(BaseModel* model: this->mFunction)
-				delete model;
-		}
-		
+		~BaseSimulator();
 		BaseSimulator(BaseSolver* solver);
 		virtual float NeuronSetStep(const float interval, const std::vector<float> inputs) = 0;
 		virtual void InsertModel(BaseModel* model) = 0;
