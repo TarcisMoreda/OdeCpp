@@ -10,11 +10,6 @@ namespace ode{
 
 		public:
 		~IObserver() = default;
-
-		/*
- 		*	Função que é executada ao notificar os observadores.
- 		*	@param observer	Ponteiro para um observador.
- 		*/
 		virtual void Notification(const float time) = 0;
 	};
 
@@ -23,6 +18,11 @@ namespace ode{
 		int mSpiked = false;
 
 		public:
+		/**
+		 * @brief Reseta o estado do observador
+		 * 
+		 * @return 1 caso tenha acontecido um spike, 0 caso não tenha acontecido
+		 */
 		float HasSpiked(){
 			if(this->mSpiked){
 				this->mSpiked = false;
@@ -31,6 +31,11 @@ namespace ode{
 			return 0.0f;
 		}
 
+		/**
+		 * @brief Notifica o observador de um Spike
+		 * 
+		 * @param time O momento em que o spike aconteceu
+		 */
 		void Notification(const float time) override{
 			this->mTime = time;
 			this->mSpiked = true;
@@ -42,24 +47,22 @@ namespace ode{
 		std::list<IObserver*> mObserversList;
 
 	public:
-		/*
- 		 *	Notifica os observadores do acontecimento de um evento.
- 		 *	@param time	Tempo do acontecimento.
- 		 */
 		virtual void NotifyObservers() = 0;
 
-		/*
- 		*	Insere um observador através de seu ponteiro.
- 		*	@param observer	Ponteiro para um observador.
- 		*/
+		/**
+		 * @brief Insere um ponteiro para um observador na lista
+		 * 
+		 * @param observer 
+		 */
 		void AttachObserver(IObserver* observer){
 			this->mObserversList.push_back(observer);
 		}
 
-		/*
- 		*	Remove um observador através de seu ponteiro.
- 		*	@param observer	Ponteiro para um observador.
- 		*/
+		/**
+		 * @brief Remove um observador através de seu ponteiro
+		 * 
+		 * @param observer 
+		 */
 		void DetachObserver(IObserver* observer){
 			auto iterator = std::find(this->mObserversList.begin(), this->mObserversList.end(), observer);
 
@@ -67,6 +70,12 @@ namespace ode{
 				mObserversList.erase(iterator);
 		}
 
+		/**
+		 * @brief Checa se o observador está na lista
+		 * 
+		 * @param observer 
+		 * @return boolean
+		 */
 		bool HasObserver(IObserver* observer){
 			for(auto internalObserver: this->mObserversList)
 				if(internalObserver==observer)

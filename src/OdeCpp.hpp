@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Constants.hpp"
 #include "Observer.hpp"
 #include "BaseModel.hpp"
 #include "AlphaFunction.hpp"

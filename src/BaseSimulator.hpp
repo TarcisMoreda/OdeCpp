@@ -14,6 +14,11 @@ namespace ode{
 
 	public:
 		~BaseSimulator();
+		/**
+		 * @brief Construtor para um simulador
+		 * 
+		 * @param solver Utilize "new TipoSolver" para a criação
+		 */
 		BaseSimulator(BaseSolver* solver);
 		virtual float NeuronSetStep(const float interval, const std::vector<float> inputs) = 0;
 		virtual void InsertModel(BaseModel* model) = 0;

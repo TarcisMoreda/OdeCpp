@@ -14,6 +14,18 @@ namespace ode{
 		this->mD = d;
 	}
 
+	IzhikevichModel::IzhikevichModel(const float* params){
+		this->mName = 'i';
+		
+		this->mState.push_back(params[2]);
+		this->mState.push_back(-params[3]);
+	
+		this->mA = params[0];
+		this->mB = params[1];
+		this->mC = params[2];
+		this->mD = params[3];
+	}
+
 	std::vector<float> IzhikevichModel::ModelDiferentialEquation(const float input){
 		std::vector<float> newState = this->mState;
 	

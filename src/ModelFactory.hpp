@@ -3,20 +3,20 @@
 #include "BaseModel.hpp"
 #include "IzhikevichModel.hpp"
 #include "AlphaFunction.hpp"
-#include "Constants.hpp"
 
 namespace ode{
     class ModelFactory{
         public:
-        BaseModel* CreateNewModel(ModelType type, const float params[]){
-            switch(type){
-            case IZHIKEVICH:
-                return new IzhikevichModel(params[0], params[1], params[2], params[3]);
-            case ALPHA:
-                return new AlphaFunction(params[0], params[1], params[2]);
-            default:
-                return nullptr;
-            }
+        /**
+         * @brief Cria um novo modelo
+         * 
+         * @tparam model Tipo do melo a ser criado
+         * @param params Lista de parâmetros para o modelo
+         * @return BaseModel* Ponteiro de tipo genêrico para o modelo
+         */
+        template <typename model>
+        BaseModel* CreateNewModel(const float params[]){
+            return new model(params);
         }
     };
 }
