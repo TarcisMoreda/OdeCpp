@@ -9,5 +9,5 @@ tests/*.gcda
 tests/*.gcno
 tests/*.out
 tests/tests.bin
-docs/OdeCpp.jpg.bak
+docs/UML.gaphor
 doxygen

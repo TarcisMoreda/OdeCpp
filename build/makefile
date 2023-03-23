@@ -54,11 +54,17 @@ $(OBJ_STT):
 
 uninstall:
 	@echo "Uninstalling dynamic library..."
-	@rm -r $(DESTDIR)/include/$(PREFIX)
-	@rm -r $(DESTDIR)/lib/$(LIB_DYN)
+	@rm -rf $(DESTDIR)/include/$(PREFIX)
+	@rm -rf $(DESTDIR)/lib/$(LIB_DYN)
 
 clean:
 	@echo "Cleaning files..."
-	$(RM) -r $(OBJ_DYN) $(OBJ_STT)
-	$(RM) $(LIB_DYN) $(LIB_STT)
+	@rm -rf $(OBJ_DYN) $(OBJ_STT)
+	@rm -f $(LIB_DYN) $(LIB_STT)
+	@rm -rf ../docs/doxygen
 	@echo "Files cleaned."
+
+docs:
+	@echo "Generating docs..."
+	@doxygen ./Doxyfile
+	@firefox ../docs/doxygen/html/index.html
