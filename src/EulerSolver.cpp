@@ -1,5 +1,4 @@
 #include "EulerSolver.hpp"
-#include <iostream>
 
 namespace ode{
 	void EulerSolver::Step(BaseModel* model, const float interval, const float input){

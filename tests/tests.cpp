@@ -7,7 +7,8 @@
 ***********************************************************/
 TEST(AlphaTest, DiferentialEquation){
 	ode::AlphaFunction func(1.0f, 10.0f, 3.0f);
-	EXPECT_FLOAT_EQ(func.ModelDiferentialEquation(2.0f)[0], 5.9f);
+	std::vector<float> res = func.ModelDiferentialEquation(2.0f);
+	EXPECT_FLOAT_EQ(res[0], 5.9f);
 };
 TEST(AlphaTest, AlphaGetParams){
 	ode::AlphaFunction func(1.0f, 10.0f, 3.0f);
@@ -68,7 +69,7 @@ TEST(IzhikevichTest, IzhikevichEquals){
 TEST(ObserverTest, GenericSpikeObserver){
 	ode::ModelFactory fac;
 	float params[] = {1.0f, 2.0f, 3.0f, 4.0f};
-	ode::BaseModel* func = fac.CreateNewModel(ode::IZHIKEVICH, params);
+	ode::BaseModel* func = fac.CreateNewModel<ode::IzhikevichModel>(params);
 	ode::SpikeObserver obs;
 	func->AttachObserver(&obs);
 	func->NotifyObservers();
@@ -94,7 +95,7 @@ TEST(FactoryTest, Izhikevich){
 	float params[] = {
 		1.0f, 10.0f, 3.0f, -10.0f
 	};
-	ode::IzhikevichModel* model = (ode::IzhikevichModel*) factory.CreateNewModel(ode::IZHIKEVICH, params);
+	ode::IzhikevichModel* model = (ode::IzhikevichModel*) factory.CreateNewModel<ode::IzhikevichModel>(params);
 
 	float result = model->getParams('a');
 	EXPECT_FLOAT_EQ(result, 1.0f);
@@ -114,7 +115,7 @@ TEST(FactoryTest, Alpha){
 	float params[] = {
 		1.0f, 10.0f, 3.0f
 	};
-	ode::AlphaFunction* model = (ode::AlphaFunction*) factory.CreateNewModel(ode::ALPHA, params);
+	ode::AlphaFunction* model = (ode::AlphaFunction*) factory.CreateNewModel<ode::AlphaFunction>(params);
 
 	float result = model->getParams('t');
 	EXPECT_FLOAT_EQ(result, -1.0f/10.0f);
@@ -135,16 +136,15 @@ TEST(SolverTest, EulerSolver){
 	ode::SpikeObserver observer;
 	
 	float izhikevichParams[] = {
-		0.02f, 0.2f, 65.0f, 8.0f
+		0.02f, 0.2f, -65.0f, 8.0f
 	};
-	ode::IzhikevichModel* model = (ode::IzhikevichModel*) factory.CreateNewModel(ode::IZHIKEVICH, izhikevichParams);
+	ode::IzhikevichModel* model = (ode::IzhikevichModel*) factory.CreateNewModel<ode::IzhikevichModel>(izhikevichParams);
 
 	solver.Step(model, 0.001f, 1.0f);
-
 	std::vector<float> state = model->getState();
 
-	EXPECT_FLOAT_EQ(state[0], 65.642998f);
-	EXPECT_FLOAT_EQ(state[1], -7.99958f);
+	EXPECT_FLOAT_EQ(state[0], -65.007f);
+	EXPECT_FLOAT_EQ(state[1], -8.0001f);
 };
 
 /***********************************************************
