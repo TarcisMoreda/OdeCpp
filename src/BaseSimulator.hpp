@@ -6,21 +6,21 @@
 
 namespace ode{
 	class BaseSimulator{
-	private:
+	protected:
 		BaseSolver* solver;
 		std::vector<BaseModel*> mModel;
 		std::vector<BaseModel*> mFunction;
 		SpikeObserver mObserver;
 
 	public:
-		~BaseSimulator();
 		/**
 		 * @brief Construtor para um simulador
 		 * 
-		 * @param solver Utilize "new TipoSolver" para a criação
+		 * @param solver Utilize "new TipoSolver" para a criação, o desconstrutor irá liberar a memória do ponteiro.
 		 */
 		BaseSimulator(BaseSolver* solver);
-		virtual float NeuronSetStep(const float interval, const std::vector<float> inputs) = 0;
+		~BaseSimulator();
+		virtual float NeuronStep(const float interval, const std::vector<float> inputs) = 0;
 		virtual void InsertModel(BaseModel* model) = 0;
 	};
 } // namespace ode

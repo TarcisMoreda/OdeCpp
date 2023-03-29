@@ -9,5 +9,5 @@ tests/*.gcda
 tests/*.gcno
 tests/*.out
 tests/tests.bin
-docs/UML.gaphor
+docs/*.xmi
 doxygen

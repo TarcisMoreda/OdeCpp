@@ -396,7 +396,7 @@ TEST(SolverTest, EulerSolver){
 	// };
 // 
 	// for(int i=0; i<results.size(); ++i){
-		// float res = simulator.NeuronSetStep(1.0f, inputs);
+		// float res = simulator.NeuronStep(1.0f, inputs);
 		// EXPECT_FLOAT_EQ(res, results[i]);
 	// }
 // };
