@@ -7,7 +7,7 @@ SRCS=$(wildcard $(SRC)/*.cpp)
 SRCS+=./tests.cpp
 BIN=tests.bin
 
-tests:
+tests: clean
 	@echo "Building tests..."
 	@$(CC) $(SRCS) $(FLAGS) -o $(BIN) $(LIBS)
 	@mkdir -p coverage

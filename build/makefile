@@ -15,7 +15,7 @@ LIB_STT=libOdeCpp.a
 DESTDIR=/usr
 PREFIX=OdeCpp
 
-all: dynamic static
+all: install
 
 install: dynamic
 	@echo "Installing dynamic library..."
@@ -27,7 +27,7 @@ install: dynamic
 	@cp $(LIB_DYN) $(DESTDIR)/lib/
 	@echo "Installation complete."
 
-dynamic: $(LIB_DYN)
+dynamic: clean $(LIB_DYN)
 
 $(LIB_DYN): $(OBJS_DYN) $(OBJ_DYN)
 	@$(CC) $(OBJS_DYN) $(FLAGS) -fPIC -shared -o $(LIB_DYN)
@@ -38,7 +38,7 @@ $(OBJ_DYN)/%.o: $(SRC)/%.cpp $(OBJ_DYN)
 $(OBJ_DYN):
 	@mkdir -p $@
 
-static: $(LIB_STT)
+static: clean $(LIB_STT)
 
 $(LIB_STT): $(OBJS_STT) $(OBJ_STT)
 	@echo "Creating static library..."
