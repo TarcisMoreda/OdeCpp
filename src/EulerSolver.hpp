@@ -10,9 +10,9 @@ namespace ode{
 		 * @brief Faz um passo no modelo provido utilizando o método de Euler
 		 * 
 		 * @param model Ponteiro do modelo
-		 * @param interval Intervalo em segundos
 		 * @param input Entrada para a equação
+		 * @param interval Intervalo em segundos
 		 */
-		void Step(BaseModel* model, const float interval, const float input) override;
+		void Step(BaseModel* model, const float input, const float interval) override;
 	};
 } // namespace ode

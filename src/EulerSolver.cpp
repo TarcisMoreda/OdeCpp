@@ -1,7 +1,7 @@
 #include "EulerSolver.hpp"
 
 namespace ode{
-	void EulerSolver::Step(BaseModel* model, const float interval, const float input){
+	void EulerSolver::Step(BaseModel* model, const float input, const float interval){
 		std::vector<float> dy = model->ModelDiferentialEquation(input);
 		std::vector<float> y = model->getState();
 

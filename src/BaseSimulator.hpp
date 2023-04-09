@@ -20,7 +20,7 @@ namespace ode{
 		 */
 		BaseSimulator(BaseSolver* solver);
 		~BaseSimulator();
-		virtual float NeuronStep(const float interval, const std::vector<float> inputs) = 0;
+		virtual float NeuronStep(const std::vector<float> inputs, const float interval) = 0;
 		virtual void InsertModel(BaseModel* model) = 0;
 	};
 } // namespace ode
