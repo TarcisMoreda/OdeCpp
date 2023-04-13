@@ -1,5 +1,4 @@
 #include "IzhikevichModel.hpp"
-#include <iostream>
 
 namespace ode{
 	IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, const float d){
