@@ -6,7 +6,7 @@ namespace ode{
 		std::vector<float> y = model->getState();
 
 		for(long unsigned int i=0; i<y.size(); ++i)
-			y[i] += (interval*dy[i]);
+			y[i] += interval*dy[i];
 
 		model->setState(y);
 		model->addTime(interval);
