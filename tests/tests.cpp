@@ -7,7 +7,8 @@
 ***********************************************************/
 TEST(AlphaTest, DiferentialEquation){
 	ode::AlphaFunction func(1.0f, 10.0f, 3.0f);
-	std::vector<float> res = func.ModelDiferentialEquation(2.0f);
+	func.ModelDiferentialEquation(2.0f);
+	std::vector<float> res = func.getState();
 	EXPECT_FLOAT_EQ(res[0], 5.9f);
 };
 TEST(AlphaTest, AlphaGetParams){
@@ -35,7 +36,8 @@ TEST(AlphaTest, AlphaEquals){
 ***********************************************************/
 TEST(IzhikevichTest, DiferentialEquation){
 	ode::IzhikevichModel func(0.02f, 0.2f, -65.0f, 8.0f);
-	std::vector<float> out = func.ModelDiferentialEquation(4.0f);
+	func.ModelDiferentialEquation(4.0f);
+	std::vector<float> out = func.getState();
 	EXPECT_FLOAT_EQ(out[0], -4.0f);
 	EXPECT_FLOAT_EQ(out[1], -0.1f);
 };

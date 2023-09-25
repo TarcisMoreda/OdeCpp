@@ -25,18 +25,14 @@ namespace ode{
 		this->mD = params[3];
 	}
 
-	std::vector<float> IzhikevichModel::ModelDiferentialEquation(const float input){
-		std::vector<float> newState = this->mState;
-	
-		newState[0] = (0.04f*(this->mState[0]*this->mState[0]))+(5.0f*this->mState[0])+140.0f-this->mState[1]+input;
-		newState[1] = this->mA*((this->mB*this->mState[0])-this->mState[1]);
+	void IzhikevichModel::ModelDiferentialEquation(const float input){
+		this->mState[0] = (0.04f*(this->mState[0]*this->mState[0]))+(5.0f*this->mState[0])+140.0f-this->mState[1]+input;
+		this->mState[1] = this->mA*((this->mB*this->mState[0])-this->mState[1]);
 
 		if(this->mState[0]>=30.0f){
 			this->mState[0] = this->mC;
 			this->mState[1] += this->mD;
 		}
-	
-		return newState;
 	}
 	
 	const float IzhikevichModel::getParams(const char param){

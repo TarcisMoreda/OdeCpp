@@ -29,9 +29,8 @@ namespace ode{
 		 * @brief Faz a equação referente ao modelo em questão
 		 * 
 		 * @param input A entrada da equação
-		 * @return std::vector<float> O estado com a equação aplicada
 		 */
-		std::vector<float> ModelDiferentialEquation(const float input) override;
+		void ModelDiferentialEquation(const float input) override;
 
 		/**
 		 * @brief Get para os parâmetros do modelo

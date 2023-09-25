@@ -10,7 +10,7 @@ namespace ode{
 		BaseSolver* solver;
 		std::vector<BaseModel*> mModel;
 		std::vector<BaseModel*> mFunction;
-		SpikeObserver mObserver;
+		IObserver* mObserver;
 
 	public:
 		/**

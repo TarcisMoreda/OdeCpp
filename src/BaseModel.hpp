@@ -12,7 +12,7 @@ namespace ode{
 	
 	public:
 		virtual ~BaseModel(){};
-		virtual std::vector<float> ModelDiferentialEquation(const float input) = 0;
+		virtual void ModelDiferentialEquation(const float input) = 0;
 		virtual const float getParams(const char param) = 0;
 
 		/**

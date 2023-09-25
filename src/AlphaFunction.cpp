@@ -15,10 +15,8 @@ namespace ode{
 		this->mWeight = params[2];
 	}
 
-	std::vector<float> AlphaFunction::ModelDiferentialEquation(const float input){
-		std::vector<float> newState = this->mState;
-		newState[0] = (this->mThau*newState[0])+(input*this->mWeight);
-		return newState;
+	void AlphaFunction::ModelDiferentialEquation(const float input){
+		this->mState[0] = (this->mThau*this->mState[0])+(input*this->mWeight);
 	}
 
 	const float AlphaFunction::getParams(const char param){
