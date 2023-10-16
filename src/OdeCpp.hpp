@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Observer.hpp"
-#include "BaseModel.hpp"
+#include "IModel.hpp"
 #include "AlphaFunction.hpp"
 #include "IzhikevichModel.hpp"
 #include "ModelFactory.hpp"
-#include "BaseSolver.hpp"
+#include "ISolver.hpp"
 #include "EulerSolver.hpp"
-#include "BaseSimulator.hpp"
+#include "ISimulator.hpp"

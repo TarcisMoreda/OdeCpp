@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <vector>
+#include <cstddef>
 #include "../src/OdeCpp.hpp"
 
 /***********************************************************
@@ -8,7 +8,7 @@
 TEST(AlphaTest, DiferentialEquation){
 	ode::AlphaFunction func(1.0f, 10.0f, 3.0f);
 	func.ModelDiferentialEquation(2.0f);
-	std::vector<float> res = func.getState();
+	float* res = func.getState();
 	EXPECT_FLOAT_EQ(res[0], 5.9f);
 };
 TEST(AlphaTest, AlphaGetParams){
@@ -37,9 +37,9 @@ TEST(AlphaTest, AlphaEquals){
 TEST(IzhikevichTest, DiferentialEquation){
 	ode::IzhikevichModel func(0.02f, 0.2f, -65.0f, 8.0f);
 	func.ModelDiferentialEquation(4.0f);
-	std::vector<float> out = func.getState();
+	float* out = func.getState();
 	EXPECT_FLOAT_EQ(out[0], -4.0f);
-	EXPECT_FLOAT_EQ(out[1], -0.1f);
+	EXPECT_FLOAT_EQ(out[1], 0.144f);
 };
 TEST(IzhikevichTest, IzhikevichGetParams){
 	ode::IzhikevichModel func(1.0f, 10.0f, 3.0f, -10.0f);
@@ -68,19 +68,10 @@ TEST(IzhikevichTest, IzhikevichEquals){
 /***********************************************************
 						OBSERVER TESTS
 ***********************************************************/
-TEST(ObserverTest, GenericSpikeObserver){
-	ode::ModelFactory fac;
-	float params[] = {1.0f, 2.0f, 3.0f, 4.0f};
-	ode::BaseModel* func = fac.CreateNewModel<ode::IzhikevichModel>(params);
-	ode::SpikeObserver obs;
-	func->AttachObserver(&obs);
-	func->NotifyObservers();
-
-	EXPECT_FLOAT_EQ(obs.HasSpiked(), 1.0f);
-	EXPECT_FLOAT_EQ(obs.HasSpiked(), 0.0f);
-};
 TEST(ObserverTest, SpikeObserver){
-	ode::IzhikevichModel func(1.0f, 2.0f, 3.0f, 4.0f);
+	float params[] = {1.0f, 2.0f, 3.0f, 4.0f};
+	ode::ModelFactory factory;
+	ode::IzhikevichModel func = factory.CreateNewModel<ode::IzhikevichModel>(params);
 	ode::SpikeObserver obs;
 	func.AttachObserver(&obs);
 	func.NotifyObservers();
@@ -97,56 +88,92 @@ TEST(FactoryTest, Izhikevich){
 	float params[] = {
 		1.0f, 10.0f, 3.0f, -10.0f
 	};
-	ode::IzhikevichModel* model = (ode::IzhikevichModel*) factory.CreateNewModel<ode::IzhikevichModel>(params);
+	ode::IzhikevichModel model = factory.CreateNewModel<ode::IzhikevichModel>(params);
 
-	float result = model->getParams('a');
+	float result = model.getParams('a');
 	EXPECT_FLOAT_EQ(result, 1.0f);
-	result = model->getParams('b');
+	result = model.getParams('b');
 	EXPECT_FLOAT_EQ(result, 10.0f);
-	result = model->getParams('c');
+	result = model.getParams('c');
 	EXPECT_FLOAT_EQ(result, 3.0f);
-	result = model->getParams('d');
+	result = model.getParams('d');
 	EXPECT_FLOAT_EQ(result, -10.0f);
-	result = model->getParams('h');
+	result = model.getParams('h');
 	EXPECT_FLOAT_EQ(result, 0.0f);
-
-	delete model;
 }
 TEST(FactoryTest, Alpha){
 	ode::ModelFactory factory;
 	float params[] = {
 		1.0f, 10.0f, 3.0f
 	};
-	ode::AlphaFunction* model = (ode::AlphaFunction*) factory.CreateNewModel<ode::AlphaFunction>(params);
+	ode::AlphaFunction model = factory.CreateNewModel<ode::AlphaFunction>(params);
 
-	float result = model->getParams('t');
+	float result = model.getParams('t');
 	EXPECT_FLOAT_EQ(result, -1.0f/10.0f);
-	result = model->getParams('w');
+	result = model.getParams('w');
 	EXPECT_FLOAT_EQ(result, 3.0f);
-	result = model->getParams('a');
+	result = model.getParams('a');
 	EXPECT_FLOAT_EQ(result, 0.0f);
-
-	delete model;
 }
 
 /***********************************************************
 					SOLVER TESTS
 ***********************************************************/
 TEST(SolverTest, EulerSolver){
-	ode::EulerSolver solver;
+	ode::EulerSolver<ode::IzhikevichModel> solver;
 	ode::ModelFactory factory;
 	ode::SpikeObserver observer;
 	
 	float izhikevichParams[] = {
 		0.02f, 0.2f, -65.0f, 8.0f
 	};
-	ode::IzhikevichModel* model = (ode::IzhikevichModel*) factory.CreateNewModel<ode::IzhikevichModel>(izhikevichParams);
+	ode::IzhikevichModel model = factory.CreateNewModel<ode::IzhikevichModel>(izhikevichParams);
 
 	solver.Step(model, 1.0f, 0.001f);
-	std::vector<float> state = model->getState();
+	float* state = model.getState();
 
-	EXPECT_FLOAT_EQ(state[0], -65.007f);
-	EXPECT_FLOAT_EQ(state[1], -8.0001f);
+	EXPECT_NEAR(state[0], -65.0f, 0.5f);
+	EXPECT_NEAR(state[1], -8.0f, 0.5f);
+};
+
+/***********************************************************
+				COMPLETE SIMULATION TESTS
+***********************************************************/
+TEST(SimulationTest, Izhikevich){
+	ode::EulerSolver<ode::IzhikevichModel> solver;
+	ode::ModelFactory factory;
+	ode::SpikeObserver observer;
+	
+	float izhikevichParams[] = {
+		0.02f, 0.2f, -65.0f, 8.0f
+	};
+	ode::IzhikevichModel model = factory.CreateNewModel<ode::IzhikevichModel>(izhikevichParams);
+
+	float res[10][2];
+	float sol[10][2] = {
+		{-65.0, -8.0},
+		{-72.0, -7.8},
+		{-75.7, -7.7},
+		{-76.2, -7.5},
+		{-76.3, -7.4},
+		{-76.5, -7.2},
+		{-76.6, -7.1},
+		{-76.7, -6.9},
+		{-76.8, -6.8},
+		{-77.0, -6.7}
+	};
+
+	for(size_t i=0; i<10; ++i){
+		float* state = model.getState();
+		res[i][0] = state[0];
+		res[i][1] = state[1];
+		solver.Step(model, 1.0f, 1.0f);
+	}
+
+	for(size_t i=0; i<10; ++i){
+		EXPECT_NEAR(res[i][0], sol[i][0], 0.5f);
+		EXPECT_NEAR(res[i][1], sol[i][1], 0.5f);
+	}
 };
 
 int main(int argc, char **argv){

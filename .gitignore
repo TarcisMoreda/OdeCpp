@@ -1,4 +1,5 @@
 .vscode
+main/
 build/libOdeCpp.so
 build/libOdeCpp.a
 build/obj_dyn

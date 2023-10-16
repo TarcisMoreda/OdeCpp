@@ -1,7 +1,6 @@
 #pragma once
 
-#include <list>
-#include <algorithm>
+#include <cstddef>
 
 namespace ode{
 	class IObserver{
@@ -44,7 +43,9 @@ namespace ode{
 
 	class ObserverSubject{
 	protected:
-		std::list<IObserver*> mObserversList;
+		IObserver* mObserversList[8];
+		size_t mObserverQuant = 0;
+		int mEmpty = -1;
 
 	public:
 		virtual void NotifyObservers() = 0;
@@ -55,19 +56,9 @@ namespace ode{
 		 * @param observer 
 		 */
 		void AttachObserver(IObserver* observer){
-			this->mObserversList.push_back(observer);
-		}
-
-		/**
-		 * @brief Remove um observador através de seu ponteiro
-		 * 
-		 * @param observer 
-		 */
-		void DetachObserver(IObserver* observer){
-			auto iterator = std::find(this->mObserversList.begin(), this->mObserversList.end(), observer);
-
-			if(iterator!=this->mObserversList.end())
-				mObserversList.erase(iterator);
+			if(this->mObserverQuant==8)
+				return;
+			this->mObserversList[this->mObserverQuant++] = observer;
 		}
 
 		/**

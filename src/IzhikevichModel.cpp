@@ -4,8 +4,8 @@ namespace ode{
 	IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, const float d){
 		this->mName = 'i';
 		
-		this->mState.push_back(c);
-		this->mState.push_back(-d);
+		this->mState[0] = c;
+		this->mState[1] = -d;
 	
 		this->mA = a;
 		this->mB = b;
@@ -16,8 +16,8 @@ namespace ode{
 	IzhikevichModel::IzhikevichModel(const float* params){
 		this->mName = 'i';
 		
-		this->mState.push_back(params[2]);
-		this->mState.push_back(-params[3]);
+		this->mState[0] = params[2];
+		this->mState[1] = -params[3];
 	
 		this->mA = params[0];
 		this->mB = params[1];
@@ -64,13 +64,14 @@ namespace ode{
 	}
 
 	void IzhikevichModel::NotifyObservers(){
-		for(auto observer: this->mObserversList)
-			observer->Notification(this->mTime);
+		for(size_t i=0; i<this->mObserverQuant; ++i)
+			this->mObserversList[i]->Notification(this->mTime);
 	}
 
 	bool IzhikevichModel::operator==(const IzhikevichModel& other){
-		if(this->mState==other.mState && this->mA==other.mA && this->mB==other.mB && this->mC==other.mC 
-		&& this->mD==other.mD && this->mName==other.mName && this->mTime==other.mTime)
+		if(this->mState[0]==other.mState[0] && this->mState[1]==other.mState[1] && this->mA==other.mA
+		&& this->mB==other.mB && this->mC==other.mC && this->mD==other.mD && this->mName==other.mName
+		&& this->mTime==other.mTime)
 		 	return true;
 		
 		return false;

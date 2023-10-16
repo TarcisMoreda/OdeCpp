@@ -1,9 +1,9 @@
 #pragma once
 
-#include "BaseModel.hpp"
+#include "IModel.hpp"
 
 namespace ode{
-	class IzhikevichModel: public BaseModel{
+	class IzhikevichModel: public IModel<2>{
 		private:
 		float mA, mB, mC, mD;
 

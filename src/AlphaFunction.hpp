@@ -1,9 +1,9 @@
 #pragma once
 
-#include "BaseModel.hpp"
+#include "IModel.hpp"
 
 namespace ode{
-	class AlphaFunction: public BaseModel{
+	class AlphaFunction: public IModel<1>{
 		private:
 		float mThau;
 		float mWeight;
@@ -53,4 +53,4 @@ namespace ode{
 		 */
 		bool operator==(const AlphaFunction& other);
 	};
-} // namespace ode
+}

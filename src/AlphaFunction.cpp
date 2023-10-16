@@ -3,14 +3,14 @@
 namespace ode{
 	AlphaFunction::AlphaFunction(const float state, const float thau, const float weight){
 		this->mName = 'a';
-		this->mState.push_back(state);
+		this->mState[0] = state;
 		this->mThau = (-1.0f/thau);
 		this->mWeight = weight;
 	}
 
 	AlphaFunction::AlphaFunction(const float* params){
 		this->mName = 'a';
-		this->mState.push_back(params[0]);
+		this->mState[0] = params[0];
 		this->mThau = (-1.0f/params[1]);
 		this->mWeight = params[2];
 	}
@@ -42,7 +42,7 @@ namespace ode{
 	}
 
 	bool AlphaFunction::operator== (const AlphaFunction& other){
-		if(this->mState==other.mState && this->mThau==other.mThau && this->mWeight==other.mWeight 
+		if(this->mState[0]==other.mState[0] && this->mThau==other.mThau && this->mWeight==other.mWeight 
 		&& this->mName==other.mName && this->mTime==other.mTime)
 			return true;
 

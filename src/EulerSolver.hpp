@@ -1,18 +1,24 @@
 #pragma once
 
-#include "BaseModel.hpp"
-#include "BaseSolver.hpp"
+#include "IModel.hpp"
+#include "ISolver.hpp"
+#include <cstddef>
 
 namespace ode{
-	class EulerSolver: public BaseSolver{
-	public:
-		/**
-		 * @brief Faz um passo no modelo provido utilizando o método de Euler
-		 * 
-		 * @param model Ponteiro do modelo
-		 * @param input Entrada para a equação
-		 * @param interval Intervalo em segundos
-		 */
-		void Step(BaseModel* model, const float input, const float interval) override;
+	template<typename m>
+	class EulerSolver: public ISolver<m>{
+		public:
+		void Step(m& model, const float input, const float interval) override{
+			float newState[model.getNumEquations()];
+			float* currState = model.getState();
+			for(size_t i=0; i<model.getNumEquations(); ++i)
+				newState[i] = currState[i];
+			
+			model.ModelDiferentialEquation(input);
+			for(size_t i=0; i<model.getNumEquations(); ++i){
+				newState[i] += interval*currState[i];
+				currState[i] = newState[i];
+			}
+		}
 	};
-} // namespace ode
+}

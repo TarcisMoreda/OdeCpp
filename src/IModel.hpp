@@ -1,17 +1,19 @@
 #pragma once
 
-#include <vector>
 #include "Observer.hpp"
+#include <cstddef>
 
 namespace ode{
-	class BaseModel: public ObserverSubject{
+	template<size_t size>
+	class IModel: public ObserverSubject{
 	protected:
 		char mName;
-		std::vector<float> mState;
+		float mState[size];
 		float mTime = 0.0f;
+		const size_t mSize = size;
 	
 	public:
-		virtual ~BaseModel(){};
+		virtual ~IModel(){};
 		virtual void ModelDiferentialEquation(const float input) = 0;
 		virtual const float getParams(const char param) = 0;
 
@@ -20,16 +22,17 @@ namespace ode{
 		 * 
 		 * @param state
 		 */
-		void setState(const std::vector<float> state){
-			this->mState = state;
+		void setState(const float* state){
+			for(size_t i=0; i<this->mSize; ++i)
+				this->mState[i] = state[i];
 		}
 
 		/**
 		 * @brief Get para o estado do modelo
 		 * 
-		 * @return std::vector<float>
+		 * @return float*
 		 */
-		std::vector<float> getState(){
+		float* getState(){
 			return this->mState;
 		}
 
@@ -66,7 +69,7 @@ namespace ode{
 		 * @return const unsigned long 
 		 */
 		const unsigned long getNumEquations(){
-			return this->mState.size();
+			return this->mSize;
 		}
 
 		/**
@@ -78,4 +81,4 @@ namespace ode{
 			return this->mName;
 		}
 	};
-} // mNamespace ode
+}; // mNamespace ode
