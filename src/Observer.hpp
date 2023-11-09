@@ -45,7 +45,6 @@ namespace ode{
 	protected:
 		IObserver* mObserversList[8];
 		size_t mObserverQuant = 0;
-		int mEmpty = -1;
 
 	public:
 		virtual void NotifyObservers() = 0;

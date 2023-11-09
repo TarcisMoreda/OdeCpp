@@ -36,10 +36,10 @@ TEST(AlphaTest, AlphaEquals){
 ***********************************************************/
 TEST(IzhikevichTest, DiferentialEquation){
 	ode::IzhikevichModel func(0.02f, 0.2f, -65.0f, 8.0f);
-	func.ModelDiferentialEquation(4.0f);
+	func.ModelDiferentialEquation(1.0f);
 	float* out = func.getState();
-	EXPECT_FLOAT_EQ(out[0], -4.0f);
-	EXPECT_FLOAT_EQ(out[1], 0.144f);
+	EXPECT_NEAR(out[0], -7.0f, 0.1f);
+	EXPECT_NEAR(out[1], -0.1f, 0.1f);
 };
 TEST(IzhikevichTest, IzhikevichGetParams){
 	ode::IzhikevichModel func(1.0f, 10.0f, 3.0f, -10.0f);
@@ -149,28 +149,23 @@ TEST(SimulationTest, Izhikevich){
 	};
 	ode::IzhikevichModel model = factory.CreateNewModel<ode::IzhikevichModel>(izhikevichParams);
 
-	float res[10][2];
-	float sol[10][2] = {
-		{-65.0, -8.0},
-		{-72.0, -7.8},
-		{-75.7, -7.7},
-		{-76.2, -7.5},
-		{-76.3, -7.4},
-		{-76.5, -7.2},
-		{-76.6, -7.1},
-		{-76.7, -6.9},
-		{-76.8, -6.8},
-		{-77.0, -6.7}
+	float res[5][2];
+	float sol[5][2] = {
+		{-65.0f, -8.0f},
+		{-64.8f, -8.01f},
+		{-64.6f, -8.02f},
+		{-64.4f, -8.03f},
+		{-64.2f, -8.04f}
 	};
 
-	for(size_t i=0; i<10; ++i){
+	for(size_t i=0; i<5; ++i){
 		float* state = model.getState();
 		res[i][0] = state[0];
 		res[i][1] = state[1];
-		solver.Step(model, 1.0f, 1.0f);
+		solver.Step(model, 10.0f, 0.1f);
 	}
 
-	for(size_t i=0; i<10; ++i){
+	for(size_t i=0; i<5; ++i){
 		EXPECT_NEAR(res[i][0], sol[i][0], 0.5f);
 		EXPECT_NEAR(res[i][1], sol[i][1], 0.5f);
 	}

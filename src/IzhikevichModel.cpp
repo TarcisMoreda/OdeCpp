@@ -1,6 +1,19 @@
 #include "IzhikevichModel.hpp"
+#include "iostream"
 
 namespace ode{
+	IzhikevichModel::IzhikevichModel(){
+		this->mName = 'i';
+		
+		this->mState[0] = 0.0f;
+		this->mState[1] = 0.0f;
+	
+		this->mA = 0.0f;
+		this->mB = 0.0f;
+		this->mC = 0.0f;
+		this->mD = 0.0f;
+	}
+
 	IzhikevichModel::IzhikevichModel(const float a, const float b, const float c, const float d){
 		this->mName = 'i';
 		
@@ -26,13 +39,11 @@ namespace ode{
 	}
 
 	void IzhikevichModel::ModelDiferentialEquation(const float input){
-		this->mState[0] = (0.04f*(this->mState[0]*this->mState[0]))+(5.0f*this->mState[0])+140.0f-this->mState[1]+input;
-		this->mState[1] = this->mA*((this->mB*this->mState[0])-this->mState[1]);
-
-		if(this->mState[0]>=30.0f){
-			this->mState[0] = this->mC;
-			this->mState[1] += this->mD;
-		}
+		const float v = this->mState[0];
+		const float u = this->mState[1];
+		
+		this->mState[0] = (0.04f*(v*v))+(5.0f*v)+140.0f-u+input;
+		this->mState[1] = this->mA*((this->mB*v)-u);
 	}
 	
 	const float IzhikevichModel::getParams(const char param){
@@ -68,12 +79,19 @@ namespace ode{
 			this->mObserversList[i]->Notification(this->mTime);
 	}
 
+	void IzhikevichModel::operator=(const IzhikevichModel& other){
+		this->mA = other.mA;
+		this->mB = other.mB;
+		this->mC = other.mC;
+		this->mD = other.mD;
+		this->mTime = other.mTime;
+		this->mState[0] = other.mState[0];
+		this->mState[1] = other.mState[1];
+	}
+
 	bool IzhikevichModel::operator==(const IzhikevichModel& other){
-		if(this->mState[0]==other.mState[0] && this->mState[1]==other.mState[1] && this->mA==other.mA
-		&& this->mB==other.mB && this->mC==other.mC && this->mD==other.mD && this->mName==other.mName
-		&& this->mTime==other.mTime)
-		 	return true;
-		
-		return false;
+		return this->mState[0]==other.mState[0] && this->mState[1]==other.mState[1] && this->mA==other.mA
+			&& this->mB==other.mB && this->mC==other.mC && this->mD==other.mD && this->mName==other.mName
+			&& this->mTime==other.mTime;
 	}
 }

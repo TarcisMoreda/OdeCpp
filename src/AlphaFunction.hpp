@@ -9,6 +9,8 @@ namespace ode{
 		float mWeight;
 
 		public:
+		AlphaFunction();
+		
 		/**
 		 * @brief Construtor para uma função de ativação alfa
 		 * 
@@ -52,5 +54,6 @@ namespace ode{
 		 * @return boolean
 		 */
 		bool operator==(const AlphaFunction& other);
+		void operator=(const AlphaFunction& other);
 	};
 }

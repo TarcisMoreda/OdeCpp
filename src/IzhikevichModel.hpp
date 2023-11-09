@@ -8,6 +8,8 @@ namespace ode{
 		float mA, mB, mC, mD;
 
 		public:
+		IzhikevichModel();
+
 		/**
 		 * @brief Construtor para um neurônio de Izhikevich
 		 * 
@@ -52,5 +54,6 @@ namespace ode{
 		 * @return boolean
 		 */
 		bool operator==(const IzhikevichModel& other);
+		void operator=(const IzhikevichModel& other);
 	};
 }

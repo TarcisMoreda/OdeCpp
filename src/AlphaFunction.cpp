@@ -1,6 +1,13 @@
 #include "AlphaFunction.hpp"
 
 namespace ode{
+	AlphaFunction::AlphaFunction(){
+		this->mName = 'a';
+		this->mState[0] = 0.0f;
+		this->mThau = 0.0f;
+		this->mWeight = 0.0f;
+	}
+
 	AlphaFunction::AlphaFunction(const float state, const float thau, const float weight){
 		this->mName = 'a';
 		this->mState[0] = state;
@@ -47,5 +54,12 @@ namespace ode{
 			return true;
 
 		return false;
+	}
+
+	void AlphaFunction::operator=(const AlphaFunction& other){
+		this->mThau = other.mThau;
+		this->mWeight = other.mWeight;
+		this->mTime = other.mTime;
+		this->setState(other.mState);
 	}
 }
